@@ -15,12 +15,9 @@ axiosInstance.interceptors.request.use(req => handleRequest(req));
 axiosInstance.interceptors.response.use(
     res => res,
     error => {
-        if (error.response.status === 401) {
+        if (error.response.status === 401 || error.response.status === 403) {
             localStorage.removeItem('token');
             window.location.href = Paths.LOGIN;
-        }
-        else if(error.response.status === 403){
-            window.location.href = Paths.HOME
         }
         return Promise.reject(error.response.data);
     },

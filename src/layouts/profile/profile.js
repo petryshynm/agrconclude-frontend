@@ -1,13 +1,10 @@
-import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Loader } from '../../components/loader'
+import { useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import WebViewer from '@pdftron/webviewer';
 import './profile.scss'
 
 export const Profile = ({}) => {
     const dispatch = useDispatch()
-    // const { loading } = useSelector(state => state.products)
-
     const viewer = useRef(null);
 
     useEffect(() => {
@@ -30,7 +27,6 @@ export const Profile = ({}) => {
     }, []);
 
     return <>
-        {/* {loading ? <Loader/> : null} */}
         <div className="profile">
             <div className="webviewer" ref={viewer} style={{height: "80vh", width: "100%"}}></div>
         </div>

@@ -8,15 +8,14 @@ import { AuthTypes } from '../actions/auth/auth.types';
 import { loginUserEndpoint, } from '../../services/endpoints/auth.endpoints';
 
 function* loginUserWorker(action) {
-    const tokenId = action.payload;
+    const token = action.payload;
     try {
-        // const { data } = yield call(
-        //     loginUserEndpoint,
-        //     tokenId,
-        // );
-        // yield localStorage.setItem('token', data.data);
-        yield localStorage.setItem('token', tokenId);
-        yield put(loginUserSuccess(tokenId));
+        const { data } = yield call(
+            loginUserEndpoint,
+            token,
+        );
+        yield localStorage.setItem('token', data.token);
+        yield put(loginUserSuccess(data.token));
     } catch (error) {
         yield put(loginUserFailure(error.message));
     }

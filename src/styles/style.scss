@@ -23,80 +23,8 @@ h5,
 h6 {
     margin: 0;
 }
-.status-panel {
-    position: absolute;
-    top: 50px;
-    width: 50%;
-    border-radius: 6px;
-    background-color: rgb(175, 240, 175);
-    padding: 10px;
-    animation: 0.5s panel-move ease-in;
-    border: 1px solid green;
-    color: white;
-    &.error {
-        background-color: rgb(228, 152, 152);
-        border: 1px solid red;
-    }
-}
 
-.blank-list{
-    font-size: 18px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.rating {
-    display: inline-block;
-    font-size: 0;
-    margin-bottom: 15px;
-    span {
-        padding: 0;
-        font-size: 20px;
-        line-height: 1;
-        color: lightgray;
-        &::before {
-            content: '★';
-        }
-        &.active {
-            color: gold;
-        }
-    }
-}
-
-.ss-modal{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 500px;
-    background-color: white;
-    border-radius: 6px;
-    padding: 20px;
-    min-height: 300px;
-    font-size: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: space-between;
-    text-align: center;
-}
-
-@keyframes panel-move {
-    0% {
-      top: -80px;
-      opacity: 0;
-    }
-  
-    100% {
-      top: -50px;
-      opacity: 1;
-    }
-  }
-  a {
+a {
     text-decoration: none;
     color: inherit;
     display: inline-block;
