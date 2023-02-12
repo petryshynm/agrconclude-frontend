@@ -1,3 +1,4 @@
+import { getProfile } from "../../services/utils";
 import { AuthTypes } from "../actions/auth/auth.types"
 
 const initialState = { 
@@ -5,6 +6,7 @@ const initialState = {
     error: false,
     message: '',
     authentificated: false,
+    profile: null
 }
 
 export const AuthReducer = (state = initialState, action) => {
@@ -22,6 +24,7 @@ export const AuthReducer = (state = initialState, action) => {
                 loading: false,
                 error: false,
                 authentificated: true,
+                profile: getProfile(action.payload)
             }
         case AuthTypes.LOGIN_FAILURE:
             return {
@@ -43,7 +46,7 @@ export const AuthReducer = (state = initialState, action) => {
                 loading: false,
                 error: false,
                 authentificated: false,
-                userRole: ''
+                profile: null
             }
         case AuthTypes.LOGOUT_FAILURE:
             return {

@@ -1,9 +1,9 @@
-import React, {useEffect, useState}from 'react'
+import React, { useEffect, useState }from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 
-import { SignIn } from './layouts/sign-in'
 import { Main } from './layouts/main';
+import { Profile } from './layouts/profile';
 import { Header } from './components/header'
 import { Footer } from './components/footer';
 import { ProtectedRoute } from './services/routes/protectedRoute';
@@ -21,17 +21,21 @@ function App() {
   if(Object.keys(reducerLoading).some((key) => reducerLoading[key].loading)) document.body.style.overflow = 'hidden';
   else document.body.style.overflow = 'visible';
 
+
+  // const onSuccess = ({ credential }) => {
+  //   dispatch(loginUserRequest(credential))
+  // };
   useEffect(()=>{
     const token = localStorage.getItem('token')
-    token ? dispatch(loginUserSuccess()) : dispatch(logoutUserRequest()) 
+    token ? dispatch(loginUserSuccess(token)) : dispatch(logoutUserRequest()) 
   },[])
 
   return (
     <Router>
         <Header/>
         <Routes>
-            <Route path="main" element={<Main/>}/>
-            <Route path="login" element={<SignIn/>}/>
+            <Route path="/" element={<Main/>}/>
+            <Route path="profile" element={<Profile/>}/>
             {protectedRoutes.map(({path, render}) => (
                 <Route path={path} element={
                     <ProtectedRoute isAllowed={isAuth}>{render}</ProtectedRoute>
@@ -39,7 +43,6 @@ function App() {
             ))}
             <Route path="*" element={<div>not found</div>}/>
         </Routes>
-        <Footer/>
     </Router>
   )
 }

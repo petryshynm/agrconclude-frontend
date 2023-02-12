@@ -1,17 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Provider } from 'react-redux';
+
 import App from './App';
 import { store } from './store/store';
-import { Provider } from 'react-redux';
+
 import './styles/style.scss';
 
 const container = document.getElementById('root')
-const root = ReactDOM.createRoot(container);
+const clientId = process.env.REACT_APP_CLIENT_ID || "";
 
-root.render(
+render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
-)
+    <GoogleOAuthProvider clientId={clientId}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </GoogleOAuthProvider>
+  </React.StrictMode> , container)

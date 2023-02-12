@@ -1,12 +1,12 @@
 import { AuthTypes } from "./auth.types";
 
-export const loginUserRequest = (user) => ({
+export const loginUserRequest = (body) => ({
     type: AuthTypes.LOGIN_REQUEST,
-    payload: user,
+    payload: body,
 });
-export const loginUserSuccess = (role) => ({
+export const loginUserSuccess = (token) => ({
     type: AuthTypes.LOGIN_SUCCESS,
-    payload: role
+    payload: token
 });
 export const loginUserFailure = (error) => ({
     type: AuthTypes.LOGIN_FAILURE,

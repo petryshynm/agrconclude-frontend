@@ -1,38 +1,49 @@
-import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Loader } from '../../components/loader'
-import WebViewer from '@pdftron/webviewer';
-import './main.scss'
+import React, { useEffect, useState } from "react";
 
-export const Main = ({}) => {
-    const dispatch = useDispatch()
-    // const { loading } = useSelector(state => state.products)
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { GoogleLogin } from "@react-oauth/google";
 
-    const viewer = useRef(null);
+import { Loader } from "../../components/loader";
+import { Paths } from "../../services/routes/paths";
+import { loginUserRequest, logoutUserRequest } from "../../store/actions/auth/auth.actions";
 
-    useEffect(() => {
-        WebViewer(
-            {
-                path: '/webviewer/lib',
-                initialDoc: '/files/quote.docx',
-            },
-            viewer.current,
-        )
-        .then(async (instance) => {
-            const { documentViewer } = instance.Core;
-            documentViewer.addEventListener('documentLoaded', async () => {
-                await documentViewer.getDocument().documentCompletePromise();
-                documentViewer.updateView();
+import "./main.scss";
 
-                await documentViewer.getDocument().applyTemplateValues({})
-            });
-        });
-    }, []);
+export const Main = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, message, profile } = useSelector(
+    (state) => state.auth
+  );
 
-    return <>
-        {/* {loading ? <Loader/> : null} */}
-        <div className="main">
-            <div className="webviewer" ref={viewer} style={{height: "80vh", width: "100%"}}></div>
-        </div>
+  const onSuccess = ({ credential }) => {
+    dispatch(loginUserRequest({tokenId: credential}))
+  };
+  const onFailure = (err) => {
+    console.log("failed:", err);
+  };
+
+  const logOut = () => {
+    dispatch(logoutUserRequest());
+  };
+
+  useEffect(() => {
+    console.log(profile)
+  }, [profile])
+  return (
+    <>
+      {loading ? <Loader /> : null}
+      <div>
+        {profile ? (
+            <button onClick={logOut}>log out</button>
+        ) : (
+            <GoogleLogin
+                onSuccess={onSuccess}
+                onError={onFailure}
+            />
+        )}
+      </div>
     </>
-}
+  );
+};

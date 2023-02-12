@@ -6,18 +6,17 @@ import { loginUserFailure,
 } from '../actions/auth/auth.actions';
 import { AuthTypes } from '../actions/auth/auth.types';
 import { loginUserEndpoint, } from '../../services/endpoints/auth.endpoints';
-import { getAuthRole } from '../../services/utils';
 
 function* loginUserWorker(action) {
-    const body = action.payload;
+    const tokenId = action.payload;
     try {
-        const { data } = yield call(
-            loginUserEndpoint,
-            body,
-        );
-        console.log(data)
-        yield localStorage.setItem('token', data.data);
-        yield put(loginUserSuccess());
+        // const { data } = yield call(
+        //     loginUserEndpoint,
+        //     tokenId,
+        // );
+        // yield localStorage.setItem('token', data.data);
+        yield localStorage.setItem('token', tokenId);
+        yield put(loginUserSuccess(tokenId));
     } catch (error) {
         yield put(loginUserFailure(error.message));
     }
@@ -25,7 +24,6 @@ function* loginUserWorker(action) {
 
 function* logoutUserWorker() {
     try {
-        // yield call(logoutUserEndpoint);
         yield localStorage.removeItem('token');
         yield put(logoutUserSuccess());
     } catch (error) {
