@@ -1,5 +1,5 @@
-import { axiosInstance } from "../axiosInterceptor/interceptor";
+import { mainInterceptor } from "../axiosInterceptor/mainInterceptor";
 
 export const getUserContractsEndpoint = () => {
-    return axiosInstance.get(`/user/contracts`)
+    return mainInterceptor.get(`/user/contracts`)
 }

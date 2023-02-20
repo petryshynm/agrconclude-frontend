@@ -1,5 +1,5 @@
-import { axiosInstance } from "../axiosInterceptor/interceptor";
+import { mainInterceptor } from "../axiosInterceptor/mainInterceptor";
 
 export const loginUserEndpoint = (body) => {
-    return axiosInstance.post('/auth/login', body);
+    return mainInterceptor.post('/auth/login', body);
 };

@@ -1,20 +1,24 @@
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { GoogleLogin } from "@react-oauth/google";
+import GoogleLogin from "react-google-login";
 
 import { loginUserRequest, logoutUserRequest } from "../../store/actions/auth/auth.actions";
+import { createDocumentRequest, getDocumentsRequest } from "../../store/actions/docs/docs.actions";
 
 import "./main.scss";
 
+const clientId = process.env.REACT_APP_CLIENT_ID || "";
+
 export const Main = () => {
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.auth);
+  const { authentificated } = useSelector((state) => state.auth);
 
-  const onSuccess = ({ credential }) => {
-    dispatch(loginUserRequest({tokenId: credential}))
+  const onLoginSuccess = ({ tokenId }) => {
+    dispatch(loginUserRequest({tokenId}))
+    
   };
-  const onFailure = (err) => {
+  const onLoginFailure = (err) => {
     console.log("failed:", err);
   };
 
@@ -23,15 +27,32 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    console.log(profile)
-  }, [profile])
-  
+    console.log(authentificated)
+    if (authentificated) {
+      handleListFiles()
+    }
+  }, [authentificated])
+
+  const createFile = async (title) => {
+    dispatch(createDocumentRequest())
+  }
+
+  const handleListFiles = async () => {
+    dispatch(getDocumentsRequest({}))
+  };
+
   return <div className="main">
-    {profile 
-      ? <button onClick={logOut}>log out</button> 
+    {authentificated 
+      ? <button className="main__btn" onClick={logOut}>log out</button> 
       : <GoogleLogin
-          onSuccess={onSuccess}
-          onError={onFailure}
+        clientId={clientId}
+        onSuccess={onLoginSuccess}
+        onFailure={onLoginFailure}
+        cookiePolicy={'single_host_origin'}
+        isSignedIn={authentificated}
+        render={renderProps => (
+          <button onClick={renderProps.onClick} className="main__btn">This is my custom Google button</button>
+        )}
       />
     }
   </div>

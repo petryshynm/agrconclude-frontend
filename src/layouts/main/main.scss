@@ -6,8 +6,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 800px;
-    &::before {
-        
-    }
+    height: 100vh;
+    background-image: url('../../resources/images/main-bg.jpeg');
 }

@@ -1,45 +1,21 @@
-import React, { useState } from 'react'
-import './header.scss'
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { Paths } from '../../services/routes/paths';
-import { logoutUserRequest } from '../../store/actions/auth/auth.actions';
+import { useSelector } from 'react-redux';
+import { navLinks } from '../../services/routes/constants';
+
+import './header.scss'
 
 export const Header = () => {
-    const { authentificated } = useSelector(state => state.auth)
-    const dispatch = useDispatch()
+    const { authentificated } = useSelector((state) => state.auth);
+    const { pathname } = useLocation();
     return (
         <header className="header">
-            <Link to="/" className="logo">
-            </Link>
+            {pathname === '/' && <Link to="/" className="logo">logo</Link>}
             <nav className="menu">
-                <div className="menu__navigation">
-                
-                </div>
-                    {authentificated 
-                        ? <div className="menu__btns _unauthorized">
-                            <Link to={Paths.PROFILE} className="menu__user link" >
-                                link1
-                            </Link>
-                            <Link 
-                                to="/login" 
-                                onClick={()=>{
-                                    dispatch(logoutUserRequest())
-                                    localStorage.clear();
-                                }} 
-                                className="menu__logout link">
-                                link 2
-                            </Link>
-                        </div> 
-                        :  <div className="menu__btns">
-                            <Link to="/register">
-                                <button type="button" className="menu__btn ">Реєстрація</button>
-                            </Link>
-                            <Link to="/login" >
-                                <button type="button" className="menu__btn">Вхід</button>
-                            </Link>
-                        </div>
-                    }
+                {navLinks.map(({path, label, isProtected}) => (
+                    !isProtected 
+                        ? <Link to={path}>{label}</Link>
+                        : authentificated && <Link className="protected" to={path}>{label}</Link>
+                ))}
             </nav>
         </header>
     )
