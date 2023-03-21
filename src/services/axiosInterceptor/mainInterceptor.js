@@ -16,8 +16,9 @@ mainInterceptor.interceptors.response.use(
     res => res,
     error => {
         if (error.response.status === 401 || error.response.status === 403) {
+            localStorage.removeItem('accessToken');
             localStorage.removeItem('token');
-            window.location.href = Paths.LOGIN;
+            window.location.href = Paths.HOME;
         }
         return Promise.reject(error.response.data);
     },

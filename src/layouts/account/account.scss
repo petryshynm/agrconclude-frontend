@@ -1,10 +1,93 @@
-
 @import '../../styles/variables.scss';
 
 .account {
-    position: relative;
-    display: flex;
-    width: 90%;
     margin: 0 auto;
-    margin-top: 80px;
+    padding-top: 90px;
+    display: flex;
+    
+    &__panel{
+        flex: 1;
+        position: relative;
+        min-height: 600px;
+        padding: 20px 100px 20px 50px;
+        justify-content: center;
+    }
+
+    &__plus {
+        font-size: 50px;
+        border-color: $indigo;
+        outline: none;
+        cursor: pointer;
+        position: absolute;
+        bottom: 50px;
+        right: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: $white;
+        width: 50px;
+        height: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0px 0px 3px 5px rgba(0,0,0,0);
+        div {
+            background-image: linear-gradient(90deg, $indigo, $mine-shaft);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        &:hover {
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
+        }
+    }
 }
+
+.agreement {
+    box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.3);
+    border-radius: 15px;
+    background-color: $white;
+    width: 230px;
+    border: 1px solid black;
+    height: 140px;
+    overflow: hidden;
+    &__header {
+        color: $white;
+        font-weight: bold;
+        height: 70px;
+        padding: 10px 20px;
+        border-bottom: 1px solid black;
+    }
+    &__info {
+        display: flex;
+        column-gap: 10px;
+        justify-content: space-between;
+        height: 70px;
+        padding: 20px;
+        button {
+            width: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            outline: none;
+            &:hover{
+                font-weight: bold;
+            }
+        }
+    }
+    
+    &_pending {
+        .agreement__header {
+            background-color: rgb(217, 136, 30);
+        }
+    }
+    &_concluded {
+        .agreement__header {
+            background-color: rgb(14, 174, 27);
+        }
+    }
+    &_declined {
+        .agreement__header {
+            background-color: rgb(243, 26, 52);
+        }
+    }
+}      

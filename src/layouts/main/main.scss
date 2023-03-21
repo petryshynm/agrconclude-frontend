@@ -1,11 +1,52 @@
+@import '../../styles/variables.scss';
+
 .main{
     width: 100%;
     position: relative;
     padding: 100px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    max-height: 100vh;
     background-image: url('../../resources/images/main-bg.jpeg');
+    padding-top: 150px;
+    color: $indigo;
+    &__title {
+        margin-bottom: 40px;
+        display: flex;
+        column-gap: 25px;
+        align-items: center;
+        font-size: 32px;
+        font-weight: 700;
+    }
+    &__subtitle {
+        margin-bottom: 55px;
+        font-size: 40px;
+        font-weight: 700;
+        width: 50%;
+        span {
+            color:$mine-shaft
+        }
+    }
+    &__paragraph {
+        color: $dove-gray;
+        font-weight: 400;
+        font-size: 16px;
+        width: 60%;
+        margin-bottom: 65px;
+    }
+    &__logo {
+        width: 80px;
+        height: 80px;
+        background-color: $indigo;
+        border-radius: 50%;
+    }
+    &__note {
+        position: absolute;
+        z-index: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5));
+    }
+
 }

@@ -4,18 +4,11 @@ const initialState = {
     loading: false,
     error: false,
     message: '',
-    documents: []
+    documents: [],
 }
 
 export const DocsReducer = (state = initialState, action) => {
     switch (action.type){
-        case DocsTypes.GET_DOCUMENTS_REQUEST:
-            return {
-                ...state,
-                loading: true,
-                error: false,
-                message: ''
-            }
         case DocsTypes.GET_DOCUMENTS_SUCCESS:
             return {
                 ...state,
@@ -23,13 +16,15 @@ export const DocsReducer = (state = initialState, action) => {
                 error: false,
                 documents: action.payload
             }
-        case DocsTypes.GET_DOCUMENTS_FAILURE:
+        case DocsTypes.COPY_DOC_SUCCESS:
+        case DocsTypes.CREATE_DOC_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                error: true,
-                message: action.payload
+                error: false,
             }
+        case DocsTypes.GET_DOCUMENTS_REQUEST:
+        case DocsTypes.COPY_DOC_REQUEST:
         case DocsTypes.CREATE_DOC_REQUEST:
             return {
                 ...state,
@@ -37,12 +32,8 @@ export const DocsReducer = (state = initialState, action) => {
                 error: false,
                 message: ''
             }
-        case DocsTypes.CREATE_DOC_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                error: false,
-            }
+        case DocsTypes.GET_DOCUMENTS_FAILURE:
+        case DocsTypes.COPY_DOC_FAILURE:
         case DocsTypes.CREATE_DOC_FAILURE:
             return {
                 ...state,

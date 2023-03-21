@@ -1,5 +1,34 @@
-import { Account } from "../../layouts/account"
+import { AboutUs } from "../../layouts/AboutUs"
+import { Account } from "../../layouts/Account"
+import { Contacts } from "../../layouts/Contacts"
+import { Faq } from "../../layouts/FAQ"
+import { Main } from "../../layouts/Main"
+import { NotFound } from "../../layouts/NotFound"
+
 import { Paths } from "./paths"
+
+export const defaultRoutes = [
+    {
+        path:Paths.HOME , 
+        render: <Main/>
+    },
+    {
+        path:Paths.ABOUT_US , 
+        render: <AboutUs/>
+    },
+    {
+        path:Paths.CONTACTS , 
+        render: <Contacts/>
+    },
+    {
+        path:Paths.FAQ , 
+        render: <Faq/>
+    },
+    {
+        path: Paths.REST , 
+        render: <NotFound/>
+    }
+]
 
 export const protectedRoutes = [
     {
@@ -11,7 +40,7 @@ export const protectedRoutes = [
 export const navLinks = [
     {
         label: "Account",
-        path: Paths.ACCOUNT,
+        path: Paths.ACCOUNT.replace("/:tab", "/profile"),
         isProtected: true,
     },
     {

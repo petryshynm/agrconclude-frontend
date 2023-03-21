@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.auth-btn {
+    border: 5px solid $indigo;
+    color: $indigo;
+    cursor: pointer;
+    border-radius: 50px;
+    height: 30px;
+    width: fit-content;
+    padding: 20px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    &:hover {
+        font-weight: bold;
+    }
+}

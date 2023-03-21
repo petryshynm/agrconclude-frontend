@@ -3,16 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { gapi } from 'gapi-script';
 
-import { Main } from './layouts/main';
-import { Header } from './components/header'
-import { Loader } from './components/loader';
+import { Header } from './components/Header'
+import { Loader } from './components/Loader';
 import { ProtectedRoute } from './services/routes/protectedRoute';
 
 import { logoutUserRequest, loginUserSuccess } from './store/actions/auth/auth.actions';
-import { protectedRoutes } from './services/routes/constants';
-import { Paths } from './services/routes/paths';
-
-import './App.css';
+import { protectedRoutes, defaultRoutes } from './services/routes/constants';
 
 const clientId = process.env.REACT_APP_CLIENT_ID || "";
 const apiKey = process.env.REACT_APP_API_KEY || "";
@@ -20,7 +16,6 @@ const scope = process.env.REACT_APP_SCOPES || "";
 
 const App = () => {
   const reducerLoading = useSelector(state => state)
-  const isAuth = useSelector(state => state.auth.authentificated);
 
   const dispatch = useDispatch();
 
@@ -32,9 +27,12 @@ const App = () => {
 
   useEffect(()=>{
     const token = localStorage.getItem('token')
-    token ? dispatch(loginUserSuccess(token)) : dispatch(logoutUserRequest()) 
+    const accessToken = localStorage.getItem('accessToken')
+    token && accessToken 
+      ? dispatch(loginUserSuccess(token)) 
+      : dispatch(logoutUserRequest()) 
   }, [dispatch])
-
+  
   useEffect(() => {
     async function start() {
       await gapi.client.init({
@@ -50,18 +48,16 @@ const App = () => {
     <Router>
         {isAppLoading && <Loader/>}
         <Header/>
-        <Routes>
-            <Route path={Paths.HOME} element={<Main/>}/>
-            <Route path={Paths.ABOUT_US} element={<div>about us</div>}/>
-            <Route path={Paths.CONTACTS} element={<div>contacts</div>}/>
-            <Route path={Paths.FAQ} element={<div>faq</div>}/>
-            {protectedRoutes.map(({path, render}) => (
+        <main>
+          <Routes>
+              {protectedRoutes.map(({path, render}) => (
                 <Route path={path} element={
-                    <ProtectedRoute isAllowed={isAuth}>{render}</ProtectedRoute>
+                  <ProtectedRoute>{render}</ProtectedRoute>
                 }/>
-            ))}
-            <Route path="*" element={<div>not found</div>}/>
-        </Routes>
+              ))}
+              {defaultRoutes.map(({path, render}) => <Route path={path} element={render}/>)}
+          </Routes>
+        </main>
     </Router>
   )
 }

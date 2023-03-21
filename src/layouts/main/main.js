@@ -1,59 +1,39 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { AuthButton } from "../../components/AuthButton";
+import { Paths } from "../../services/routes/paths";
 
-import { useDispatch, useSelector } from "react-redux";
-import GoogleLogin from "react-google-login";
-
-import { loginUserRequest, logoutUserRequest } from "../../store/actions/auth/auth.actions";
-import { createDocumentRequest, getDocumentsRequest } from "../../store/actions/docs/docs.actions";
-
-import "./main.scss";
-
-const clientId = process.env.REACT_APP_CLIENT_ID || "";
+import "./Main.scss";
 
 export const Main = () => {
-  const dispatch = useDispatch();
-  const { authentificated } = useSelector((state) => state.auth);
-
-  const onLoginSuccess = ({ tokenId }) => {
-    dispatch(loginUserRequest({tokenId}))
-    
-  };
-  const onLoginFailure = (err) => {
-    console.log("failed:", err);
-  };
-
-  const logOut = () => {
-    dispatch(logoutUserRequest());
-  };
+  const navigate = useNavigate();
+  const { profile, authentificated } = useSelector(state => state.auth);
 
   useEffect(() => {
-    console.log(authentificated)
-    if (authentificated) {
-      handleListFiles()
-    }
-  }, [authentificated])
-
-  const createFile = async (title) => {
-    dispatch(createDocumentRequest())
-  }
-
-  const handleListFiles = async () => {
-    dispatch(getDocumentsRequest({}))
-  };
+    // if (profile && authentificated) {
+    //   navigate(Paths.ACCOUNT)
+    // }
+  }, [profile, authentificated, navigate]);
 
   return <div className="main">
-    {authentificated 
-      ? <button className="main__btn" onClick={logOut}>log out</button> 
-      : <GoogleLogin
-        clientId={clientId}
-        onSuccess={onLoginSuccess}
-        onFailure={onLoginFailure}
-        cookiePolicy={'single_host_origin'}
-        isSignedIn={authentificated}
-        render={renderProps => (
-          <button onClick={renderProps.onClick} className="main__btn">This is my custom Google button</button>
-        )}
-      />
-    }
+    <div className="main__title">
+      <div className="main__logo"></div>
+      agrConclude
+    </div>
+    <div className="main__subtitle">
+      agrConclude <span>- this is lorem ipsum dolor</span>
+    </div>
+    <div className="main__paragraph">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </div>
+    <AuthButton />
+    <img src="./assets/note.png" alt="Note" className="main__note" />
   </div>
-};
+}

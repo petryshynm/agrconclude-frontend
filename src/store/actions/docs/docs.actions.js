@@ -24,3 +24,17 @@ export const getDocumentsFailure = (error) => ({
     type: DocsTypes.GET_DOCUMENTS_FAILURE,
     payload: error,
 });
+
+export const copyDocumentRequest = (fileData) => ({
+    type: DocsTypes.COPY_DOC_REQUEST,
+    payload: fileData,
+})
+
+export const copyDocumentFailure = (error) => ({
+    type: DocsTypes.COPY_DOC_FAILURE,
+    payload: error,
+})
+
+export const copyDocumentSuccess = () => ({
+    type: DocsTypes.COPY_DOC_SUCCESS
+})
