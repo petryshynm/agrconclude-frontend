@@ -47,3 +47,31 @@ export const getDocumentFields = () => {
       }
     );
 };
+
+
+export const socials = [
+  {},
+  {},
+  {
+    icon: 'twitter',
+    color: 'astral',
+  },
+  {},
+  {
+    icon: 'facebook',
+    color: 'carolina',
+  },
+  {
+    icon: 'instagram',
+    color: 'steel',
+  },
+  {
+    icon: 'phone',
+    color: 'lapis',
+  },
+  {},
+  {
+    icon: 'mail',
+    color: 'lapis',
+  },
+];

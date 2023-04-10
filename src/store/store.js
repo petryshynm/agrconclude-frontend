@@ -4,10 +4,12 @@ import rootSaga from './sagas';
 import { AuthReducer } from './reducers/auth.reducer';
 import { UserReducer } from './reducers/user.reducer';
 import { DocsReducer } from './reducers/docs.reducer';
+import { MainReducer } from './reducers/main.reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
+    main: MainReducer,
     auth: AuthReducer,
     user: UserReducer,
     docs: DocsReducer

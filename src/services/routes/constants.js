@@ -5,6 +5,8 @@ import { Faq } from "../../layouts/FAQ"
 import { Main } from "../../layouts/Main"
 import { NotFound } from "../../layouts/NotFound"
 
+import {ReactComponent as AccountIcon} from '../../resources/icons/account.svg';
+
 import { Paths } from "./paths"
 
 export const defaultRoutes = [
@@ -42,6 +44,7 @@ export const navLinks = [
         label: "Account",
         path: Paths.ACCOUNT.replace("/:tab", "/profile"),
         isProtected: true,
+        icon: <AccountIcon/>,
     },
     {
         label: "About us",

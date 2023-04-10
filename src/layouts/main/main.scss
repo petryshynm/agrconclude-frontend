@@ -2,51 +2,357 @@
 
 .main{
     width: 100%;
-    position: relative;
-    padding: 100px;
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
-    background-image: url('../../resources/images/main-bg.jpeg');
-    padding-top: 150px;
+    background-color: $white;
     color: $indigo;
-    &__title {
-        margin-bottom: 40px;
-        display: flex;
-        column-gap: 25px;
-        align-items: center;
-        font-size: 32px;
-        font-weight: 700;
+    
+    .container {
+        position: relative;
+        z-index: 1;
     }
-    &__subtitle {
-        margin-bottom: 55px;
-        font-size: 40px;
-        font-weight: 700;
-        width: 50%;
-        span {
-            color:$mine-shaft
-        }
-    }
-    &__paragraph {
-        color: $dove-gray;
-        font-weight: 400;
-        font-size: 16px;
-        width: 60%;
-        margin-bottom: 65px;
-    }
-    &__logo {
-        width: 80px;
-        height: 80px;
-        background-color: $indigo;
-        border-radius: 50%;
-    }
-    &__note {
+
+    &__circle1 {
         position: absolute;
-        z-index: 0;
+        top: 580px;
+        left: 0;
+    }
+    &__circle2 {
+        position: absolute;
+        top: 0;
         right: 0;
+    }
+    &__shakes1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &__shakes2 {
+        position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5));
+        right: 0;
+    }
+    &__shakes3 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    &__list {
+        position: absolute;
+        top: 200px;
+        right: 100px;
+    }
+
+    &__deal {
+        position: absolute;
+        left: 100px;
+    }
+
+    &__paragraph {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        color: $astral;
+        width: 60%;
+        margin-bottom: 80px;
+        &_light {
+            color: $misty;
+        }
+    }
+
+    &__title {
+        text-align: center;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 48px;
+        text-transform: capitalize;
+        color: $astronaut;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        margin-bottom: 140px;
+        &_light {
+            color: $misty;
+        }
+    }
+
+    &__more {
+        display: block;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        text-transform: capitalize;
+        text-decoration: underline;
+        color: $astral;
+        &:hover {
+            color: $astronaut;
+            text-decoration: underline;
+        }
+    }
+
+    // sections 
+    &-info {
+        padding-top: 150px;
+        height: 100vh;
+        &__logo {
+            margin-bottom: 140px;
+        }
+        &__title {
+            // font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 48px;
+            color: $astral;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.17);
+            width: 60%;
+            margin-bottom: 80px;
+            span {
+                font-weight: 700;
+                color: $mine-shaft
+            }
+        }
+    }
+
+    &-about-us {
+        height: 100vh;
+        // padding-bottom: 200px;
+        padding-top: 100px;
+        position: relative;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .main__title {
+            width: 100%;
+        }
+        .main__more {
+            width: 60%;
+        }
+    }
+
+    &-contact-us {
+        position: relative;
+        height: 100vh;
+        min-height: 900px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        background-image: url('../../resources/images/bg-rect.png');
+        padding-top: 100px;
+        &__title {
+            // font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 64px;
+            letter-spacing: 0.08em;
+            color: $misty;
+            margin-bottom: 35px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            & > div:first-child {
+                width: calc(100% - 170px * 3 - 50px);
+            }
+        }
+        .main__paragraph {
+            width: 100%;
+        }
+        .main__more {
+            width: 60%;
+            &_light {
+                color: $misty;
+            }
+        }
+    }
+
+    .socials {
+        width: calc(170px * 3);
+        display: flex;
+        flex-wrap: wrap;
+        &__block {
+            height: 170px;
+            width: 170px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &_astral {
+                background-color: $astral;
+            }
+
+            &_carolina {
+                background-color: $carolina-blue;
+            }
+
+            &_steel {
+                background-color: $steel-blue;
+            }
+
+            &_lapis {
+                background-color: $lapis;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1700px) {
+    .main{
+        &-info {
+            &__logo {
+                margin-bottom: 100px;
+            }
+            &__title {
+                margin-bottom: 40px;
+                font-size: 32px;
+            }
+        }
+        &__circle1 {
+            height: 900px;
+        }
+        &__circle2 {
+            height: 500px;
+        }
+        &__list {
+            width: 400px;
+        }
+        &__deal {
+            top: 100px;
+            width: 400px;
+        }
+        &__paragraph {
+            margin-bottom: 50px;
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .main{
+        &__more {
+            font-size: 18px;
+        }
+        &__title {
+            font-size: 32px;
+            margin-bottom: 100px;
+        }
+        &__list, &__deal {
+            display: none;
+        }
+        &__paragraph {
+            font-size: 18px;
+            width: 100%;
+            // margin-bottom: 30px;
+        }
+        &__circle2 {
+            height: 400px;
+        }
+        &__circle1 {
+            height: 600px;
+        }
+
+        .socials {
+            width: 300px;
+            height: 300px;
+            &__block {
+                width: 100px;
+                height: 100px;
+                img {
+                    height: 45px;
+                    width: 45px;
+                }
+            }
+        }
+    }
+    .main-info {
+        padding-top: 200px;
+        &__title {
+            font-size: 28px;
+        }
+    }
+    .main-about-us {
+        padding-top: 150px;
+        .main__more {
+            width: 100%;
+        }
+    }
+    .main-contact-us {
+        min-height: initial;
+        height: initial;
+        padding-bottom: 100px;
+        .container > div:first-child {
+            width: calc(100% - 300px);
+        }
+        &__title {
+            font-size: 32px;
+        }
+    }
+
+}
+
+@media (max-width: 768px) {
+    .main-info {
+        padding-top: 150px;
+    }
+    .main {
+        &__circle2 {
+            height: 300px;
+        }
+        &__circle1 {
+            top: 600px;
+            height: 400px;
+        }
+        &__shakes1 {
+            width: 100%;
+        }
+        &__shakes2 {
+            width: 100%;
+        }
+        &__shakes3 {
+            width: 100%;
+        }
+
+        .main-contact-us {
+            height: initial;
+            padding-bottom: 100px;
+            &__title {
+                font-size: 24px;
+            }
+            .container {
+                flex-direction: column;
+                & > div:first-child {
+                    width: 100%;
+                }
+            }
+        }
+        .socials {
+            display: none;
+        }
+    }
+
+}
+
+@media (max-width: 576px) {
+    .main {
+        &__circle2 {
+            height: 150px;
+        }
+    }
+    .main-info {
+        &__logo {
+            margin-bottom: 40px;
+        }
+        &__title {
+            font-size: 24px;
+        }
+    }
+}
+
+@media (max-width: 470px) {
+    .main {
+        &__circle1 {
+            height: 300px;
+        }
     }
 
 }
