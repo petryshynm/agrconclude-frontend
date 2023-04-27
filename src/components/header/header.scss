@@ -5,15 +5,16 @@
     padding: 15px 45px;
     position: absolute;
     top: 0;
-    z-index: 5;
+    z-index: 5000;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     font-weight: lighter;
     column-gap: 30px;
     transition: all 0.3s ease;
     background-color: transparent;
     &_main {
+        justify-content: flex-end;
         .menu {
             svg path{
                 fill: $selago;
@@ -71,6 +72,7 @@
         justify-content: center;
         align-items: center;
         transition: all 0.5s ease;
+        color: $selago;
         a {
             line-height: 40px;
             width: 80%;
@@ -102,5 +104,17 @@
     }
     &_light span {
         background-color: $white;
+    }
+}
+
+
+
+
+@media (max-width: 576px) {
+    .logo {
+        width:250px;
+        img {
+            width: 100%;
+        }
     }
 }

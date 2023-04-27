@@ -1,29 +1,12 @@
+import { createAction } from "../index";
 import { UserTypes } from "./user.types"
 
-export const getUserContractsRequest = () => ({
-    type: UserTypes.GET_USER_CONTRACTS_REQUEST,
-})
+export const getUserContractsActions = createAction(UserTypes.GET_USER_CONTRACTS);
 
-export const getUserContractsSuccess = (contracts) => ({
-    type: UserTypes.GET_USER_CONTRACTS_SUCCESS,
-    payload: contracts
-})
+export const getUsersActions = createAction(UserTypes.GET_USERS);
 
-export const getUserContractsFailure = (error) => ({
-    type: UserTypes.GET_USER_CONTRACTS_FAILURE,
-    payload: error
-})
+export const getMyAgreementsActions = createAction(UserTypes.GET_MY_AGREEMENTS);
 
-export const getUsersRequest = () => ({
-    type: UserTypes.GET_USERS_REQUEST,
-})
+export const getSignAgreementsActions = createAction(UserTypes.GET_SIGN_AGREEMENTS);
 
-export const getUsersSuccess = (users) => ({
-    type: UserTypes.GET_USERS_SUCCESS,
-    payload: users
-})
-
-export const getUsersFailure = (error) => ({
-    type: UserTypes.GET_USERS_FAILURE,
-    payload: error
-})
+export const getAgreementActions = createAction(UserTypes.GET_AGREEMENT);

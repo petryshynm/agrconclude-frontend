@@ -1,0 +1,87 @@
+@import "../../styles/variables.scss";
+
+.agreement {
+  cursor: pointer;
+  filter: drop-shadow(-5px 5px 4px rgba(0, 0, 0, 0.1));
+  border-radius: 20px;
+  background-color: $white;
+  width: 300px;
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  &__content {
+    padding: 25px 20px;
+    color: $astronaut;
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__status {
+    width: 40px;
+    height: 100%;
+  }
+  &__header {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+  &__description {
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 12px;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  &_pending {
+    .agreement__info span {
+      color: $pending;
+    }
+    .agreement__status {
+      background-color: $pending;
+    }
+  }
+  &_concluded {
+    .agreement__info span {
+      color: $concluded;
+    }
+    .agreement__status {
+      background-color: $concluded;
+    }
+  }
+  &_declined {
+    .agreement__info span {
+      color: $declined;
+    }
+    .agreement__status {
+      background-color: $declined;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .agreement {
+    width: 100%;
+
+    &__content {
+      width: calc(100% - 20px);
+    }
+    &__status {
+      width: 20px;
+    }
+    &__header {
+        font-size: 16px;
+    }
+    &__info {
+        font-size: 14px;
+    }
+  }
+}

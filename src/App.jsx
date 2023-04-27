@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { gapi } from 'gapi-script';
 
-import { Header } from './components/Header'
+import { Header } from './components/Header';
 import { Loader } from './components/Loader';
 import { ProtectedRoute } from './services/routes/protectedRoute';
 
-import { logoutUserRequest, loginUserSuccess } from './store/actions/auth/auth.actions';
+import { loginUserActions, logoutUserActions } from './store/actions/auth/auth.actions';
 import { protectedRoutes, defaultRoutes } from './services/routes/constants';
 import { Footer } from './components/Footer';
 
@@ -33,8 +33,8 @@ const App = () => {
     const token = localStorage.getItem('token')
     const accessToken = localStorage.getItem('accessToken')
     token && accessToken 
-      ? dispatch(loginUserSuccess(token)) 
-      : dispatch(logoutUserRequest()) 
+      ? dispatch(loginUserActions.success(token)) 
+      : dispatch(logoutUserActions.request()) 
   }, [dispatch])
   
   useEffect(() => {

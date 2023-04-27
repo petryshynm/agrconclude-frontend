@@ -64,7 +64,7 @@ export const Header = () => {
             "header_main": isMainPage
         })}>
             {!isMainPage && <Link to="/" className="logo">
-                <img src='./assets/icons/logo-full.svg' alt="Logo" />    
+                <img src="../assets/icons/logo-full.svg" alt="logo"/>    
             </Link>}
             {isHamburgerMenu && <div ref={burgerRef} className="burger-btn" onClick={() => handleClick(true)}>
                 <span/>    
@@ -87,9 +87,3 @@ export const Header = () => {
         </header>
     )
 }
-
-// {navLinks.map(({path, label, isProtected}) => (
-//     !isProtected 
-//         ? <Link key={path} to={path}>{label}</Link>
-//         : authentificated && <Link key={path} className="protected" to={path}>{label}</Link>
-// ))}

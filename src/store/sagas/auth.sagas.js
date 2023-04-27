@@ -1,11 +1,6 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects';
-import { loginUserFailure, 
-    loginUserSuccess, 
-    logoutUserFailure, 
-    logoutUserSuccess, 
-} from '../actions/auth/auth.actions';
-import { AuthTypes } from '../actions/auth/auth.types';
-import { loginUserEndpoint, } from '../../services/endpoints/auth.endpoints';
+import { loginUserActions, logoutUserActions } from '../actions/auth/auth.actions';
+import { loginUserEndpoint } from '../../services/endpoints/auth.endpoints';
 
 function* loginUserWorker(action) {
     const token = action.payload;
@@ -15,25 +10,24 @@ function* loginUserWorker(action) {
             token,
         );
         yield localStorage.setItem('token', data.token);
-        yield put(loginUserSuccess(data.token));
+        yield put(loginUserActions.success(data.token));
     } catch (error) {
-        yield put(loginUserFailure(error.message));
+        yield put(loginUserActions.failure(error.message));
     }
 }
 
 function* logoutUserWorker() {
     try {
         yield localStorage.removeItem('token');
-        yield put(logoutUserSuccess());
+        yield put(logoutUserActions.success());
     } catch (error) {
-        yield put(logoutUserFailure(error.message));
+        yield put(logoutUserActions.failure(error.message));
     }
 }
 
-
 export function* authorizationSaga() {
     yield all([
-        takeLatest(AuthTypes.LOGIN_REQUEST, loginUserWorker),
-        takeLatest(AuthTypes.LOGOUT_REQUEST, logoutUserWorker),
+        takeLatest(loginUserActions.request().type, loginUserWorker),
+        takeLatest(logoutUserActions.request().type, logoutUserWorker),
     ]);
 }

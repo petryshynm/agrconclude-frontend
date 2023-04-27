@@ -1,0 +1,68 @@
+@import '../../styles/variables.scss';
+
+.tabs {
+    padding: 55px 35px;
+    background-color: $astronaut;
+    height: 100%;
+    width: 90px;
+    transition: width 0.5s ease;
+    overflow: hidden;
+    position: relative;
+    color: $selago;
+    &_open {
+        min-width: 300px;
+        width: 300px;
+    }
+    &__burger {
+        cursor: pointer;
+        top: 60px;
+        right: 35px;
+        position: absolute;
+    }
+    &__header{
+        margin-bottom: 75px;
+    }
+    &__item {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        column-gap: 20px;
+        margin-bottom: 25px;
+        width: 230px;
+        text-transform: uppercase;
+        position: relative;
+        img {
+            height: 20px;
+            width: 20px;
+        }
+        &::after {
+            content: '';
+            transform: all 0.3s ease;
+            position: absolute;
+            width: 2px;
+            background-color: transparent;
+            right: 0;
+            bottom: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &_active{
+            &::after {
+                top: 0;
+                background-color: $selago;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 575px) {
+    .tabs {
+        z-index: 100;
+        position: absolute;
+        &_open {
+            width: 100%;
+        }
+    }
+}

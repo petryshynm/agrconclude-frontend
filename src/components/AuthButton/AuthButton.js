@@ -1,7 +1,7 @@
 import GoogleLogin from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginUserRequest, logoutUserRequest } from "../../store/actions/auth/auth.actions";
+import { loginUserActions, logoutUserActions } from "../../store/actions/auth/auth.actions";
 
 import './AuthButton.scss';
 
@@ -14,7 +14,7 @@ export const AuthButton = () => {
     const onLoginSuccess = (data) => {
         const { tokenId, accessToken } = data;
         localStorage.setItem('accessToken', accessToken)
-        dispatch(loginUserRequest({tokenId}))  
+        dispatch(loginUserActions.request({tokenId}))  
     };
 
     const onLoginFailure = (err) => {
@@ -22,7 +22,7 @@ export const AuthButton = () => {
     };
     
     const logout = () => {
-        dispatch(logoutUserRequest());
+        dispatch(logoutUserActions.request());
     };
 
     return authentificated 

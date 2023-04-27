@@ -1,4 +1,6 @@
 .my-agreements {
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 40px 20px;
+    padding: 20px 100px 20px 50px!important;
 }

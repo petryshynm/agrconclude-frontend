@@ -1,22 +1,18 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import { 
-    getDocumentsSuccess,
-    getDocumentsFailure,
-    createDocumentSuccess,
-    createDocumentFailure,
-    copyDocumentFailure,
-    copyDocumentSuccess
+    createDocumentActions,
+    getDocumentsActions,
+    copyDocumentActions
 } from '../actions/docs/docs.actions';
-import { DocsTypes } from '../actions/docs/docs.types';
 import { createDocumentEndpoint } from '../../services/endpoints/docs.endpoints';
 import { copyDocumentEndpoint, getDocumentsEndpoint } from '../../services/endpoints/drive.endpoints';
 
 function* createDocumentWorker() {
     try {
         const { data } = yield call(createDocumentEndpoint);
-        yield put(createDocumentSuccess(data));
+        yield put(createDocumentActions.success(data));
     } catch (error) {
-        yield put(createDocumentFailure(error.message));
+        yield put(createDocumentActions.failure(error.message));
     }
 }
 
@@ -27,10 +23,10 @@ function* getDocumentsWorker(action) {
             getDocumentsEndpoint,
             config
         )
-        yield put(getDocumentsSuccess(data.files));
+        yield put(getDocumentsActions.success(data.files));
         console.log('getDocumentsWorker', data)
     } catch (error) {
-        yield put(getDocumentsFailure(error.message));
+        yield put(getDocumentsActions.failure(error.message));
     }
 }
 
@@ -41,17 +37,17 @@ function* copyDocumentWorker(action) {
             copyDocumentEndpoint,
             fileData
         )
-        yield put(copyDocumentSuccess());
+        yield put(copyDocumentActions.success());
         console.log('copyDocumentWorker', data)
     } catch (error) {
-        yield put(copyDocumentFailure(error.message));
+        yield put(copyDocumentActions.failure(error.message));
     }
 }
 
 export function* documentsSaga() {
     yield all([
-        takeLatest(DocsTypes.CREATE_DOC_REQUEST, createDocumentWorker),
-        takeLatest(DocsTypes.GET_DOCUMENTS_REQUEST, getDocumentsWorker),
-        takeLatest(DocsTypes.COPY_DOC_REQUEST, copyDocumentWorker),
+        takeLatest(createDocumentActions.request().type, createDocumentWorker),
+        takeLatest(getDocumentsActions.request().type, getDocumentsWorker),
+        takeLatest(copyDocumentActions.request().type, copyDocumentWorker),
     ]);
 }

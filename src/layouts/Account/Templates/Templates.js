@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDocumentsRequest } from '../../../store/actions/docs/docs.actions';
+import { getDocumentsActions } from '../../../store/actions/docs/docs.actions';
 
 
 export const Templates = () => {
@@ -8,7 +8,7 @@ export const Templates = () => {
     const dispatch = useDispatch();
   
     useEffect(() => {
-      dispatch(getDocumentsRequest());
+      dispatch(getDocumentsActions.request());
     }, [dispatch]);
 
     const openDocument = (documentId) => {
