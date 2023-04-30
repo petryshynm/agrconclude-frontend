@@ -13,8 +13,10 @@
     column-gap: 30px;
     transition: all 0.3s ease;
     background-color: transparent;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,.5);
     &_main {
         justify-content: flex-end;
+        box-shadow: none;
         .menu {
             svg path{
                 fill: $selago;
@@ -72,7 +74,7 @@
         justify-content: center;
         align-items: center;
         transition: all 0.5s ease;
-        color: $selago;
+        color: $selago!important;
         a {
             line-height: 40px;
             width: 80%;

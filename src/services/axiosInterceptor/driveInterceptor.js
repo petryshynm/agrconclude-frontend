@@ -7,8 +7,6 @@ export const driveInterceptor = axios.create({
 const handleRequest = (request) => {
     const accessToken = localStorage.getItem('accessToken');
     request.headers['Authorization'] = `Bearer ${accessToken}`
-    // request.headers['mode'] = 'no-cors'
-    // request.headers['Access-Control-Allow-Origin'] = '*'
     return request;
 };
 driveInterceptor.interceptors.request.use(req => handleRequest(req));

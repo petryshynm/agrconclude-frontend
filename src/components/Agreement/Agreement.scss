@@ -65,6 +65,14 @@
       background-color: $declined;
     }
   }
+  &_unsigned {
+    .agreement__info span {
+      color: $unsigned;
+    }
+    .agreement__status {
+      background-color: $unsigned;
+    }
+  }
 }
 
 @media (max-width: 576px) {

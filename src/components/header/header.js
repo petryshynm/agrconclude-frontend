@@ -47,7 +47,7 @@ export const Header = () => {
                 } else {
                     header.classList.remove('header_fixed');
                 }
-                if (isMainPage) {
+                if (isMainPage && scrollTop <= scrollTopThreshold) {
                     burger?.classList.add('burger-btn_light');
                 } else {
                     burger?.classList.remove('burger-btn_light');

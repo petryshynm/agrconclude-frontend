@@ -1,50 +1,96 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDocumentsActions } from '../../../store/actions/docs/docs.actions';
-import { getUsersActions } from '../../../store/actions/user/user.actions';
+import { useEffect } from "react";
+import { ErrorMessage, Field } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 
-import '../Form.scss';
+import { Select } from "../../Select";
+import { Form } from "../Form";
+
+import { getDocumentsActions } from "../../../store/actions/docs/docs.actions";
+import { getUsersActions } from "../../../store/actions/user/user.actions";
+
+import "../Form/Form.scss";
 
 export const CreateAgreementForm = () => {
-    const { documents } = useSelector((state) => state.docs);
-    const { users } = useSelector((state) => state.user);
-    const dispatch = useDispatch();
+  const { documents } = useSelector((state) => state.docs);
+  const { users } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-    console.log(documents);
-    console.log(users);
+  useEffect(() => {
+    dispatch(getDocumentsActions.request());
+    dispatch(getUsersActions.request());
+  }, [dispatch]);
 
-    useEffect(() => {
-      dispatch(getDocumentsActions.request());
-      dispatch(getUsersActions.request());
-    }, [dispatch]);
-  
-    const onSubmit = (e) => {
-      e.preventDefault();
-      console.log(e.target);
-      const documentId = e.target.documents.value;
-      const userId = e.target.users.value;
-      const date = e.target.date.value;
-      console.log({userId, documentId, date});
-      // const receiver = e.target.input.value
-    };
+  const onSubmit = (values) => {
+    console.log(JSON.stringify(values, null, 2));
+    console.log(values);
+  };
 
-    return <form className="form" onSubmit={onSubmit}>
-        <label htmlFor='documents'>
-            <div>Agreement Template:</div>
-            <select id="documents" className="form__input" name="documents">
-                {documents.map(({ name, id }) => <option key={id} value={id}>{name}</option>)}
-            </select>
-        </label>
-        <label htmlFor="users">
-            <div>Receiver:</div>
-            <select id="users" className="form__input" name="users">
-                {users.map(({ email, id, avatarUrl }) => <option key={id} value={id}>{email}</option>)}
-            </select>
-        </label>
-        <label htmlFor="date">
-            <div>Date:</div>
-            <input type="date" className="form__input" name="date" id="date"/>
-        </label>
-        <button className="form__submit" disabled={!documents.length || !users.length} type="submit">Create agreement</button>
-    </form>
-}
+  const initialValues = {
+    documentId: "",
+    userId: "",
+    date: "",
+  };
+
+  const tomorrowDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+  const tomorrowString = tomorrowDate.toISOString().split('T')[0];
+
+  const validationSchema = Yup.object({
+    documentId: Yup.string().required("Required."),
+    userId: Yup.string().required("Required."),
+    date: Yup.date()
+    .min(
+      tomorrowDate,
+      'The date cannot be earlier than tomorrow.'
+    ).required("Required."),
+  });
+
+  return (
+    <Form
+      isFormModal
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+      submitValue="Create"
+    >
+      <label htmlFor="documents" className="form__label">
+        <div>Agreement Template:</div>
+        <Field className="form__input" id="documents" name="documentId">
+          {({ field, meta }) => (
+            <>
+              <Select {...field} options={documents} />
+              {meta.touched && meta.error && (
+                <div className="form__error">{meta.error}</div>
+              )}
+            </>
+          )}
+        </Field>
+      </label>
+      <label htmlFor="users" className="form__label">
+        <div>Receiver:</div>
+        <Field id="users" className="form__input" name="userId">
+          {({ field, meta }) => (
+            <>
+              <Select {...field} options={users} />
+              {meta.touched && meta.error && (
+                <div className="form__error">{meta.error}</div>
+              )}
+            </>
+          )}
+        </Field>
+      </label>
+      <label htmlFor="date" className="form__label">
+        <div>Date:</div>
+        <Field
+          type="date"
+          className="form__input"
+          id="date"
+          name="date"
+          placeholder="Date"
+          min={tomorrowString}
+        />
+        <ErrorMessage className="form__error" name="date" />
+      </label>
+    </Form>
+  );
+};

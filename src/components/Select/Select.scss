@@ -1,0 +1,69 @@
+@import '../../styles/variables.scss';
+
+.select {
+  &__container {
+    position: relative;
+    width: 100%;
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      border-color: $astral;
+    }
+  }
+  &__options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: $alice;
+    border: 1px solid $astral;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+.arrow {
+  margin-left: 10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  &_down {
+    border-width: 5px 4px 0 4px;
+    border-color: $astral transparent transparent transparent;
+  }
+  &_up {
+    border-width: 0 4px 5px 4px;
+    border-color: transparent transparent $astral transparent;
+  }
+}
+
+.option {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  img {
+    height: 20px;
+    border-radius: 50%;
+  }
+  &__container {
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: $selago;
+    }
+  }
+  &_selected {
+    background-color: $selago;
+    font-weight: bold;
+  }
+}

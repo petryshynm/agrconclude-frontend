@@ -23,7 +23,7 @@ export const MyAgreements = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <><CreateAgreementForm /></>
+        <><CreateAgreementForm classNames="form_modal"/></>
       </Modal>
     </div>
   );

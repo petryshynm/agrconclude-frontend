@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { gapi } from 'gapi-script';
 
-import { Header } from './components/Header';
+
 import { Loader } from './components/Loader';
+import { Header } from './components/Header';
 import { ProtectedRoute } from './services/routes/protectedRoute';
 
 import { loginUserActions, logoutUserActions } from './store/actions/auth/auth.actions';

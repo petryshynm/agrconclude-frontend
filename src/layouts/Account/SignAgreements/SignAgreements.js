@@ -1,38 +1,47 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Modal } from "@mui/material";
+
 import { Agreement } from "../../../components/Agreement";
 import { SignAgreementForm } from "../../../components/Form/SignAgreement";
+
 import './SignAgreements.scss';
+import { getDocumentFields } from "../../../services/utils";
 
 export const SignAgreements = () => {
-    const [openModal, setOpenModal] = useState(false);
+    const [openSign, setOpenSign] = useState(false);
     const [agreementToSign, setAgreementToSign] = useState(null);
     const { signAgreements } = useSelector((state) => state.user)
 
     const openAgreement = (agr) => {
         setAgreementToSign(agr);
-        setOpenModal(true);
+        setOpenSign(true);
     }
 
     const closeAgreement = () => {
         setAgreementToSign(null);
-        setOpenModal(false);
+        setOpenSign(false);
     }
 
+    const onSubmit = () => {
+    }
     return (
       <div className="account__panel sign-agreements">
-        {/* add message when 0 items */}
-        {signAgreements.map((agreement) => <Agreement key={agreement.id} {...agreement} onClick={() => openAgreement(agreement)}/>)}
-
-        <Modal
-          open={!!agreementToSign && openModal}
-          onClose={closeAgreement}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <><SignAgreementForm agreement={agreementToSign}/></>
-        </Modal>
+        {openSign && agreementToSign ? (
+            <div>
+              <button onClick={closeAgreement}>go back</button>
+              <SignAgreementForm agreement={agreementToSign}/>
+            </div>
+          ) : <>
+            {signAgreements.map((agreement, index) => (
+              <Agreement 
+                key={index} 
+                {...agreement}
+                status="unsigned" 
+                onClick={() => openAgreement(agreement)}
+              />
+            ))}
+          </>
+        }
       </div>
     );
 }

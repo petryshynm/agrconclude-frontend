@@ -1,0 +1,15 @@
+.signature {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.signatureCanvas {
+
+    border: 1px solid black;
+    background-color: white;
+    width: 500px;
+    height: 400px;
+}
+  

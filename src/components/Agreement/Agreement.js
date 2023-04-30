@@ -1,4 +1,5 @@
 import { Tooltip } from "@mui/material";
+
 import "./Agreement.scss";
 
 export const Agreement = ({ id, label, description, timestamp, status, onClick }) => (
