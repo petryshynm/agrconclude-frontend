@@ -6,7 +6,11 @@ const initialState = {
     error: false,
     message: '',
     authentificated: false,
-    profile: null
+    profile: {
+        gender: '...',
+        phone: '...',
+        birthday: '...'
+    }
 }
 
 export const AuthReducer = (state = initialState, action) => {
@@ -33,7 +37,10 @@ export const AuthReducer = (state = initialState, action) => {
                 loading: false,
                 error: false,
                 authentificated: true,
-                profile: getProfile(action.payload)
+                profile: {
+                    ...state.profile,
+                    ...getProfile(action.payload)
+                }
             }
         case `${AuthTypes.LOGOUT}_SUCCESS`:
             return {
@@ -41,7 +48,7 @@ export const AuthReducer = (state = initialState, action) => {
                 loading: false,
                 error: false,
                 authentificated: false,
-                profile: null
+                profile: initialState.profile,
             }
         default:
             return state

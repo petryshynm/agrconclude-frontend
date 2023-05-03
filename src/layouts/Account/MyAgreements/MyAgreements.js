@@ -12,7 +12,7 @@ export const MyAgreements = () => {
   return (
     <div className="my-agreements account__panel"> 
       {/* add message when 0 items*/}
-      {myAgreements.map((agreement) => <Agreement{...agreement} key={agreement.id} onClick={() => console.log(agreement.id)}/>)}
+      {myAgreements.map((agreement) => <Agreement {...agreement} key={agreement.id} onClick={() => console.log(agreement.id)}/>)}
 
       <button className="account__plus" onClick={() => setOpenModal(true)}>
         <div>+</div>

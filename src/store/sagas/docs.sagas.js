@@ -8,7 +8,7 @@ import {
     createSignatureActions
 } from '../actions/docs/docs.actions';
 import { createDocumentEndpoint, getDocumentFieldsEndpoint } from '../../services/endpoints/docs.endpoints';
-import { copyDocumentEndpoint, createSignatureEndpoint, getDocumentsEndpoint, getFileEndpoint, getSignatureEndpoint } from '../../services/endpoints/drive.endpoints';
+import { copyDocumentEndpoint, createSignatureEndpoint, getDocumentsEndpoint, getSignatureEndpoint } from '../../services/endpoints/drive.endpoints';
 import { parseDocument } from '../../services/utils';
 
 function* createDocumentWorker() {

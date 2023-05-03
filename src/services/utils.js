@@ -72,6 +72,13 @@ export const socials = [
   },
 ];
 
+export const profileSocials = [
+  'profile-facebook',
+  'profile-twitter',
+  'profile-google',
+  'profile-linkedin'
+]
+
 export const formatString = (fieldName) => {
   const formattedFieldName = fieldName.replace(/_/g, ' ');
   const words = formattedFieldName.match(/[A-Za-z][a-z]*/g);

@@ -1,0 +1,161 @@
+@import '../../../styles/variables.scss';
+
+.profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    &__button {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        outline: none;
+        background-color: #FFF;
+        border: 1px solid #3A73A5;
+        color: #3A73A5;
+        &_inverted {
+            background: #3A73A5;
+            border: 1px solid #FFF;
+            color: #FFFFFF;
+        }
+    }
+    &__mb {
+        margin-bottom: 15px;
+    }
+    &__name {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        color: #2B5376;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    &__email {
+        text-align: center;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        color: #2B5376;
+        margin-bottom: 40px;
+    }
+    &__info {
+        height: 100%;
+        padding-right: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 300px;
+        border-right: 1px solid #2B5376;
+        overflow-y: auto;
+        > * {
+            width: 100%;
+        }
+        > img {
+            width: 30%;
+            border-radius: 50%;
+            margin-bottom: 50px;
+        }
+    }
+    &__amounts {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 45px;
+        & > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            div:first-child {
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 24px;
+                color: #2B5376;
+            }
+            div:last-child {
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 15px;
+                text-align: center;
+                color: #2B5376;
+            }
+        }
+    }
+    &__fields {
+        margin: 50px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+    }
+    &__socials {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+    &__signature {
+        filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
+        border-radius: 20px;
+        background-color: $white;
+        width: 300px;
+        min-width: 250px;
+        height: 250px;
+        overflow: hidden;
+        display: flex;
+        padding: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            height: 100%;
+        }
+    }
+    &__content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        padding-left: 50px;
+        &-label {
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            color: #2B5376;
+            margin: 30px 0;
+            padding-left: 10px;
+        }
+        &-block {
+            display: flex;
+            overflow-x: auto;
+            column-gap: 20px;
+            align-items: center;
+            min-height: 275px;
+            padding-left: 10px;
+        }
+    }
+}
+
+.field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #2B5376;
+}
