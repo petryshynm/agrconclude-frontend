@@ -9,10 +9,10 @@ export const Tabs = ({ tabs, onChange, value }) => {
     return <div className={classNames("tabs", {
         'tabs_open': isOpen
     })}>
-        <img className="tabs__burger" src="../assets/icons/hamburger-white.svg" onClick={() => setIsOpen(!isOpen)} alt="toggle"/>
+        <img className="tabs__burger" src="/assets/icons/hamburger-white.svg" onClick={() => setIsOpen(!isOpen)} alt="toggle"/>
         {isOpen && (
             <>
-                <img className="tabs__header" src="../assets/icons/logo-white.svg" alt="logo"/>
+                <img className="tabs__header" src="/assets/icons/logo-white.svg" alt="logo"/>
                 {tabs.map(({icon, label, id}, index) => (
                     <div onClick={() => {
                         onChange(index);

@@ -21,7 +21,7 @@ export const Header = () => {
 
     const handleClick = (isOpen) => {
         setMenuOpen(isOpen);
-        dispatch(toggleModal(isOpen));
+        dispatch(toggleModal.request(isOpen));
     }
 
     const renderLink = ({path, isProtected, icon, label}) => {
@@ -64,7 +64,7 @@ export const Header = () => {
             "header_main": isMainPage
         })}>
             {!isMainPage && <Link to="/" className="logo">
-                <img src="../assets/icons/logo-full.svg" alt="logo"/>    
+                <img src="/assets/icons/logo-full.svg" alt="logo"/>    
             </Link>}
             {isHamburgerMenu && <div ref={burgerRef} className="burger-btn" onClick={() => handleClick(true)}>
                 <span/>    

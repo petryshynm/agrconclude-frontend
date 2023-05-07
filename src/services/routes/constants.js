@@ -1,5 +1,6 @@
 import { AboutUs } from "../../layouts/AboutUs"
 import { Account } from "../../layouts/Account/Account"
+import { Agreement } from "../../layouts/Agreement/Agreement"
 import { Contacts } from "../../layouts/Contacts"
 import { Faq } from "../../layouts/FAQ"
 import { Main } from "../../layouts/Main"
@@ -36,6 +37,10 @@ export const protectedRoutes = [
     {
         path: Paths.ACCOUNT,
         render: <Account/>
+    },
+    {
+        path: Paths.AGREEMENT,
+        render: <Agreement/>
     },
 ]
 

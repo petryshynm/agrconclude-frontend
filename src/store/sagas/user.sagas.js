@@ -1,24 +1,28 @@
 import { call, all, takeLatest, put, delay } from 'redux-saga/effects';
-import { getUserContractsEndpoint, getUsersEndpoint } from '../../services/endpoints/user.endpoints';
-import { getUserContractsActions, getUsersActions, getMyAgreementsActions, getAgreementActions, getSignAgreementsActions } from '../actions/user/user.actions';
-
-function* getUserContractsWorker() {
-    try {
-        const { data } = yield call(getUserContractsEndpoint);
-        yield put(getUserContractsActions.success(data));
-    } catch (error) {
-        yield put(getUserContractsActions.failure(error.message));
-    }
-}
+import { changeAgreementStatusEndpoint, createAgreementEndpoint, getUsersEndpoint } from '../../services/endpoints/user.endpoints';
+import { getUsersActions, getMyAgreementsActions, getAgreementActions, getSignAgreementsActions, createAgreementActions, changeAgreementStatusActions } from '../actions/user/user.actions';
+import axios from 'axios';
+import { giveFilePermissionEndpoint } from '../../services/endpoints/drive.endpoints';
 
 function* getUsersWorker() {
     try {
-        const { data } = yield call(getUsersEndpoint);
-        const mappedData = data.map(({ email, id, avatarUrl }) => ({ 
-          value: id,
-          label: email,
-          image: avatarUrl,
-        }));
+        // TODO  BE
+        // const { data } = yield call(getUsersEndpoint);
+        // const mappedData = data.map(({ email, id, avatarUrl }) => ({ 
+        //   value: id,
+        //   label: email,
+        //   image: avatarUrl,
+        // }));
+
+        const { data } = yield call(axios.get, `http://localhost:5000/users`)
+        const mappedData = data.map((user) => { 
+          const {  email, avatar_url } = user;
+          return {
+            value: user,
+            label: email,
+            image: avatar_url,
+          }
+        });
         yield put(getUsersActions.success(mappedData));
     } catch (error) {
         yield put(getUsersActions.failure(error.message));
@@ -27,73 +31,11 @@ function* getUsersWorker() {
 
 function* getMyAgreementsWorker(action) {
     try {
+        // TODO BE
         // const { data } = yield call(getUsersEndpoint);
         yield delay(2000)
-        const data = [
-            {
-              label: "Угода про співпрацю",
-              documentId: "some_id1",
-              status: "pending",
-              timestamp: "16.03.2023",
-              receiverId: "someUserId",
-            },
-            {
-              label: "Угода про нерозголошення",
-              documentId: "some_id2",
-              status: "concluded",
-              timestamp: "18.03.2023",
-              receiverId: "someUserId3",
-            },
-            {
-              label: "Угода про звільнення",
-              documentId: "some_id3",
-              status: "declined",
-              timestamp: "21.03.2023",
-              receiverId: "someUserId2",
-            },
-            {
-              label: "Угода про співпрацю",
-              documentId: "some_id4",
-              status: "pending",
-              timestamp: "16.03.2023",
-              receiverId: "someUserId",
-            },
-            {
-              label: "Угода про нерозголошення",
-              documentId: "some_id5",
-              status: "concluded",
-              timestamp: "18.03.2023",
-              receiverId: "someUserId3",
-            },
-            {
-              label: "Угода про звільнення",
-              documentId: "some_id6",
-              status: "declined",
-              timestamp: "21.03.2023",
-              receiverId: "someUserId2",
-            },
-            {
-              label: "Угода про співпрацю",
-              documentId: "some_id7",
-              status: "pending",
-              timestamp: "16.03.2023",
-              receiverId: "someUserId",
-            },
-            {
-              label: "Угода про нерозголошення",
-              documentId: "some_id8",
-              status: "concluded",
-              timestamp: "18.03.2023",
-              receiverId: "someUserId3",
-            },
-            {
-              label: "Угода про звільнення",
-              documentId: "some_id9",
-              status: "declined",
-              timestamp: "21.03.2023",
-              receiverId: "someUserId2",
-            },
-        ];
+        const myId = localStorage.getItem('token');
+        const { data } = yield call(axios.get, `http://localhost:5000/agreements?sender.id=${myId}`)
         yield put(getMyAgreementsActions.success(data));
     } catch (error) {
         yield put(getMyAgreementsActions.failure(error.message));
@@ -102,82 +44,11 @@ function* getMyAgreementsWorker(action) {
 
 function* getSignAgreementsWorker(action) {
     try {
+        // TODO BE
         // const { data } = yield call(getUsersEndpoint);
         yield delay(2000)
-        const user = {
-          id: "f4a22399-f7b2-4e05-96e2-d63a7981393a",
-          avatarUrl: "https://lh3.googleusercontent.com/a/AEdFTp7vhij4c559r46Y0404wm4o6sdWaMWc-xPqKZ3p=s96-c",
-          email: "bohdan.benkevych@serious-software.com",
-          firstName: "Bohdan",
-          lastName: "Benkevych"
-        }
-        const data = [
-          {
-            label: "Угода про співпрацю",
-            documentId: "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
-            status: "pending",
-            timestamp: "16.03.2023",
-            receiver: user,
-          },
-          {
-            label: "Угода про співпрацю",
-            documentId: "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
-            status: "pending",
-            timestamp: "16.03.2023",
-            receiver: user,
-          },
-          {
-            label: "Угода про нерозголошення",
-            documentId: "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
-            status: "concluded",
-            timestamp: "18.03.2023",
-            receiver: user,
-          },
-          {
-            label: "Угода про звільнення",
-            documentId: "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
-            status: "declined",
-            timestamp: "21.03.2023",
-            receiver: user,
-          },
-          {
-            label: "Угода про співпрацю",
-            documentId: "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
-            status: "pending",
-            timestamp: "16.03.2023",
-            receiver: user,
-          },
-          {
-            label: "Угода про нерозголошення",
-            documentId: "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
-            status: "concluded",
-            timestamp: "18.03.2023",
-            receiver: user,
-          },
-          {
-            label: "Угода про звільнення",
-            documentId: "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
-            status: "declined",
-            timestamp: "21.03.2023",
-            receiver: user,
-          },
-        ];
-        // [
-        //   {
-        //     id:  "819cca92-1823-4c03-a9c5-c79e0a0e746f",
-        //     avatarUrl: "https://lh3.googleusercontent.com/a/AEdFTp6T0yUxvyrJZCtnaDumWQDLo9qE6jKZk7A7c6pU=s96-c",
-        //     email: "petryshynmax@gmail.com",
-        //     firstName: "Макс",
-        //     lastName: "Петришин"
-        //   },
-        //   {
-        //     id: "f4a22399-f7b2-4e05-96e2-d63a7981393a",
-        //     avatarUrl: "https://lh3.googleusercontent.com/a/AEdFTp7vhij4c559r46Y0404wm4o6sdWaMWc-xPqKZ3p=s96-c",
-        //     email: "bohdan.benkevych@serious-software.com",
-        //     firstName: "Bohdan",
-        //     lastName: "Benkevych"
-        //   }
-        // ]
+        const myId = localStorage.getItem('token');
+        const { data } = yield call(axios.get, `http://localhost:5000/agreements?receiver.id=${myId}`)
         yield put(getSignAgreementsActions.success(data));
     } catch (error) {
         yield put(getSignAgreementsActions.failure(error.message));
@@ -186,26 +57,67 @@ function* getSignAgreementsWorker(action) {
 
 function* getAgreementWorker(action) {
     try {
+        const id = action.payload;
         // const { data } = yield call(getUsersEndpoint, action.payload); //should be id there
         yield delay(2000)
-        const data = {
-            label: "Угода про співпрацю",
-            description: "Це угода про ..віфолфдівоіфвовіфдлфвіодлвфіодфвівфі",
-            documentId: "some_id1",
-            status: "pending",
-            date: "16.03.2024",
-            receiverId: "someUserId",
-            senderId: "someUserId"
-        }
+        const { data } = yield call(axios.get, `http://localhost:5000/agreements/${id}`)
         yield put(getAgreementActions.success(data));
     } catch (error) {
         yield put(getAgreementActions.failure(error.message));
     }
 };
 
+function* createAgreementWorker(action) {
+  // TODO потім не треба буде userId, бо воно береться з токена.
+  const { profile, agreementInfo } = action.payload;
+  const sender = {
+    first_name: profile.givenName,
+    id: profile.googleId,
+    avatar_url: profile.imageUrl,
+    lastName: profile.name,
+    email: profile.email
+  }
+
+  const { documentId, expireAt, user: receiver, description, label } = agreementInfo;
+
+  const mockAgreement = {
+    status: "pending",
+    createdAt: "18.03.2023",
+    label,
+    description,
+    expireAt,
+    documentId,
+    receiver,
+    sender,
+  }
+
+  try {
+    yield call(createAgreementEndpoint, mockAgreement)
+    yield call(giveFilePermissionEndpoint, documentId, {
+      'role': 'reader',
+      'type': 'user',
+      'emailAddress': sender.email
+    })
+    yield put(createAgreementActions.success())
+  } catch (error) {
+    yield put(createAgreementActions.failure(error.message));
+  }
+}
+
+function* changeStatusWorker(action) {
+  try {
+      const { agreementId, ...rest } = action.payload;
+      const { data } = yield call(changeAgreementStatusEndpoint, agreementId, rest)
+      yield put(getAgreementActions.success(data));
+  } catch (error) {
+      yield put(getAgreementActions.failure(error.message));
+  }
+};
+
 export function* userSaga() {
     yield all([
-        takeLatest(getUserContractsActions.request().type, getUserContractsWorker),
+        takeLatest(createAgreementActions.request().type, createAgreementWorker),
+        takeLatest(changeAgreementStatusActions.request().type, changeStatusWorker),
         takeLatest(getUsersActions.request().type, getUsersWorker),
         takeLatest(getAgreementActions.request().type, getAgreementWorker),
         takeLatest(getSignAgreementsActions.request().type, getSignAgreementsWorker),

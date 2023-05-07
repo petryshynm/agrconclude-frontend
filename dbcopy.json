@@ -1,0 +1,112 @@
+{
+    "users": [
+        {
+            "id": "117848409919275077776",
+            "avatar_url": "https://lh3.googleusercontent.com/a/AEdFTp7vhij4c559r46Y0404wm4o6sdWaMWc-xPqKZ3p=s96-c",
+            "email": "petryshynmax@gmail.com",
+            "first_name": "Maksym",
+            "last_name": "Petryshyn"
+        },
+        {
+            "id": "114078507978736075407",
+            "avatar_url": "",
+            "email": "benderito33@gmail.com",
+            "first_name": "Dmytro",
+            "last_name": "Rozhko"
+        }
+    ],
+    "agreements": [
+        {
+            "id": 1,
+            "description": "Lorem ipsumdsaadsdasdasad",
+            "label": "Угода про співпрацю",
+            "documentId": "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
+            "status": "pending",
+            "createdAt": "16.03.2023",
+            "expireAt": "20.03.2024",
+            "sender": {
+                "id": "114078507978736075407",
+                "avatar_url": "",
+                "email": "benderito33@gmail.com",
+                "first_name": "Dmytro",
+                "last_name": "Rozhko"
+            },
+            "receiver": {
+                "id": "117848409919275077776",
+                "avatar_url": "https://lh3.googleusercontent.com/a/AEdFTp7vhij4c559r46Y0404wm4o6sdWaMWc-xPqKZ3p=s96-c",
+                "email": "petryshynmax@gmail.com",
+                "first_name": "Maksym",
+                "last_name": "Petryshyn"
+            }
+        },
+        {
+            "id": 2,
+            "label": "Акт на роботу",
+            "description": "Lorem ipsumdsaadsdasdasad",
+            "documentId": "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
+            "status": "declined",
+            "createdAt": "18.03.2023",
+            "expireAt": "20.03.2024",
+            "sender": {
+                "id": "114078507978736075407",
+                "avatar_url": "",
+                "email": "benderito33@gmail.com",
+                "first_name": "Dmytro",
+                "last_name": "Rozhko"
+            },
+            "receiver": {
+                "id": "117848409919275077776",
+                "avatar_url": "https://lh3.googleusercontent.com/a/AEdFTp7vhij4c559r46Y0404wm4o6sdWaMWc-xPqKZ3p=s96-c",
+                "email": "petryshynmax@gmail.com",
+                "first_name": "Maksym",
+                "last_name": "Petryshyn"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Угода про нерозголошення",
+            "description": "Lorem ipsumdsaadsdasdasad",
+            "documentId": "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
+            "status": "concluded",
+            "createdAt": "18.03.2023",
+            "expireAt": "20.03.2024",
+            "sender": {
+                "id": "114078507978736075407",
+                "avatar_url": "",
+                "email": "benderito33@gmail.com",
+                "first_name": "Dmytro",
+                "last_name": "Rozhko"
+            },
+            "receiver": {
+                "id": "117848409919275077776",
+                "avatar_url": "https://lh3.googleusercontent.com/a/AEdFTp7vhij4c559r46Y0404wm4o6sdWaMWc-xPqKZ3p=s96-c",
+                "email": "petryshynmax@gmail.com",
+                "first_name": "Maksym",
+                "last_name": "Petryshyn"
+            }
+        },
+        {
+            "id": 4,
+            "receiver": {
+                "id": "114078507978736075407",
+                "avatar_url": "",
+                "email": "benderito33@gmail.com",
+                "first_name": "Dmytro",
+                "last_name": "Rozhko"
+            },
+            "label": "Угода про звільнення",
+            "description": "Lorem ipsumdsaadsdasdasad",
+            "documentId": "1_DgRZgP102TFC5J-EV1Upyx-fK9MJag3FsgZHHk51A4",
+            "status": "declined",
+            "createdAt": "21.03.2023",
+            "expireAt": "20.03.2024",
+            "sender": {
+                "id": "117848409919275077776",
+                "avatar_url": "https://lh3.googleusercontent.com/a/AEdFTp7vhij4c559r46Y0404wm4o6sdWaMWc-xPqKZ3p=s96-c",
+                "email": "petryshynmax@gmail.com",
+                "first_name": "Maksym",
+                "last_name": "Petryshyn"
+            }
+        }
+    ]
+}

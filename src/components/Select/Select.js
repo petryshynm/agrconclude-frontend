@@ -42,7 +42,7 @@ export const Select = ({ options, ...rest }) => {
         <div className="select__options">
           {options.map((option) => (
             <div
-              key={option.value}
+              key={option.label}
               className={classNames("option__container", {
                 "option_selected": selectedOption?.value === option.value
               })}

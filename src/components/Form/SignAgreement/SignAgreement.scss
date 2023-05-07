@@ -1,19 +1,47 @@
 @import '../../../styles/variables.scss';
 
-// .sign-agreement-form {
-    .form {
-        width: 100%;
-        column-gap: 20px;
-        padding: 0!important;
-        flex-direction: row;
-        flex-wrap: wrap;
-        &__submit {
-            position: absolute;
-            left: 0;
-            bottom: -50px;
-        }
-        &__label {
-            width: calc(50% - 10px);
+.form.sign-agreement-form {
+    width: 100%;
+    column-gap: 20px;
+    padding: 0!important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .form__submit {
+        position: absolute;
+        left: 0;
+        bottom: -50px;
+    }
+    .form__label {
+        width: calc(50% - 10px);
+    }
+}
+
+.sign-agreement {
+    &-btn {
+        margin-bottom: 30px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: transparent;
+        font-size: 20px;
+        line-height: 24px;
+        display: flex;
+        justify-content: center;
+        border-color: $astral;
+        color: $astral;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover {
+            background-color: $astral;
+            color: $white;
         }
     }
-// }
+}
+
+@media screen and (max-width: 550px) {
+    .form.sign-agreement-form {
+        .form__label {
+            width: 100%;
+        }
+    }
+}

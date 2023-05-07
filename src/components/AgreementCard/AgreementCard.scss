@@ -1,6 +1,6 @@
 @import "../../styles/variables.scss";
 
-.agreement {
+.agreement-card {
   cursor: pointer;
   filter: drop-shadow(-5px 5px 4px rgba(0, 0, 0, 0.1));
   border-radius: 20px;
@@ -43,41 +43,49 @@
   }
 
   &_pending {
-    .agreement__info span {
+    .agreement-card__info span {
       color: $pending;
     }
-    .agreement__status {
+    .agreement-card__status {
       background-color: $pending;
     }
   }
   &_concluded {
-    .agreement__info span {
+    .agreement-card__info span {
       color: $concluded;
     }
-    .agreement__status {
+    .agreement-card__status {
       background-color: $concluded;
     }
   }
   &_declined {
-    .agreement__info span {
+    .agreement-card__info span {
       color: $declined;
     }
-    .agreement__status {
+    .agreement-card__status {
       background-color: $declined;
     }
   }
   &_unsigned {
-    .agreement__info span {
+    .agreement-card__info span {
       color: $unsigned;
     }
-    .agreement__status {
+    .agreement-card__status {
       background-color: $unsigned;
+    }
+  }
+  &_signed {
+    .agreement-card__info span {
+      color: $astral;
+    }
+    .agreement-card__status {
+      background-color: $astral;
     }
   }
 }
 
 @media (max-width: 576px) {
-  .agreement {
+  .agreement-card {
     width: 100%;
 
     &__content {

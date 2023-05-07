@@ -13,6 +13,13 @@ export const getProfile = (token) => {
   return JSON.parse(jsonPayload);
 };
 
+export const openDocument = (documentId) => {
+  window.open(
+    `https://docs.google.com/document/d/${documentId}/edit`,
+    "_blank"
+  );
+};
+
 export const parseDocument = (data) => {
   const docContent = data.body.content;
   const placeholders = [];
@@ -118,4 +125,12 @@ export const getInsertImageRule = (uri, index, height = 30) => {
           },
       }
   }  
+}
+
+export const AgreementStatus = {
+  concluded: 'concluded',
+  declined: 'declined',
+  pending: 'pending',
+  signed: 'signed',
+  unsigned: 'unsigned',
 }

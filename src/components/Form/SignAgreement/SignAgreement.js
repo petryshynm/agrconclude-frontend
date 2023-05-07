@@ -4,29 +4,30 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 
 import { Form } from "../Form";
+import { Select } from "../../Select";
 
-import { getDocumentFieldsActions, signDocumentFieldsActions } from "../../../store/actions/docs/docs.actions";
+import { getDocumentFieldsActions, getSignatureActions, signDocumentFieldsActions } from "../../../store/actions/docs/docs.actions";
 import { formatString } from "../../../services/utils";
 
 import './SignAgreement.scss';
-import { Select } from "../../Select";
 
 export const SignAgreementForm = ({ agreement, onClose }) => {
   const dispatch = useDispatch();
   const { signFields, signature, signatureURL } = useSelector((state) => state.docs);
-  const { documentId, sender, createdAt, expireAt, label } = agreement
+  const { documentId, sender, id: agreementId }  = agreement
 
-  console.log(agreement);
   useEffect(() => {
     dispatch(getDocumentFieldsActions.request(documentId));
-  }, [dispatch, agreement, documentId]);
+    (!signature || !signatureURL) && dispatch(getSignatureActions.request())
+  }, [dispatch, agreement, documentId, signature, signatureURL]);
 
   const onSubmit = (fields) => {
     const signInfo = { 
       senderEmail: sender.email, 
       documentId, 
       signatureURL, 
-      fields
+      fields,
+      agreementId
     }
     dispatch(signDocumentFieldsActions.request(signInfo));
   }
@@ -78,13 +79,7 @@ export const SignAgreementForm = ({ agreement, onClose }) => {
   };
   return (
     <>
-      <button classNames="sign-agreement-form" onClick={onClose}>back</button>
-      <div>
-        <div>Created: {label}</div>
-        <div>Created: {createdAt}</div>
-        <div>Expire: {expireAt}</div>
-        <div>Sender: {sender.email}</div>
-      </div>
+      <button className="sign-agreement-btn" onClick={onClose}>{'←'}</button>
       <Form
         initialValues={initialValues}
         onSubmit={onSubmit}

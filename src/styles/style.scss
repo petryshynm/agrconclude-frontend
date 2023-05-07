@@ -93,3 +93,34 @@ input::-webkit-inner-spin-button {
   background-color: rgba(43, 83, 118, 0.69) !important;
   backdrop-filter: blur(5px);
 }
+
+.agr-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  outline: none;
+  background-color: #FFF;
+  border: 1px solid #3A73A5;
+  color: #3A73A5;
+  &_inverted {
+      background: #3A73A5;
+      border: 1px solid #FFF;
+      color: #FFFFFF;
+  }
+}
+
+.agr-title {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  color: #2B5376;
+  margin: 30px 0;
+}

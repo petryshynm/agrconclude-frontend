@@ -35,7 +35,6 @@ export const DocsReducer = (state = initialState, action) => {
                 documents: action.payload
             }
         case `${DocsTypes.CREATE_SIGNATURE}_SUCCESS`:
-        case `${DocsTypes.CREATE_DOC}_SUCCESS`:
         case `${DocsTypes.SIGN_DOCUMENT_FIELDS}_SUCCESS`:
             return {
                 ...state,
@@ -46,7 +45,6 @@ export const DocsReducer = (state = initialState, action) => {
         case `${DocsTypes.GET_DOCUMENT_FIELDS}_REQUEST`:
         case `${DocsTypes.GET_SIGNATURE}_REQUEST`:
         case `${DocsTypes.GET_DOCUMENTS}_REQUEST`:
-        case `${DocsTypes.CREATE_DOC}_REQUEST`:
         case `${DocsTypes.SIGN_DOCUMENT_FIELDS}_REQUEST`:
             return {
                 ...state,
@@ -58,7 +56,6 @@ export const DocsReducer = (state = initialState, action) => {
         case `${DocsTypes.GET_DOCUMENT_FIELDS}_FAILURE`:
         case `${DocsTypes.GET_SIGNATURE}_FAILURE`:
         case `${DocsTypes.GET_DOCUMENTS}_FAILURE`:
-        case `${DocsTypes.CREATE_DOC}_FAILURE`:
         case `${DocsTypes.SIGN_DOCUMENT_FIELDS}_FAILURE`:
             return {
                 ...state,

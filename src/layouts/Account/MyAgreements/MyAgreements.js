@@ -1,8 +1,9 @@
 import { Modal } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+
 import { CreateAgreementForm } from "../../../components/Form/CreateAgreement/CreateAgreement";
-import { Agreement } from "../../../components/Agreement";
+import { AgreementCard } from "../../../components/AgreementCard";
 import "./MyAgreements.scss";
 
 export const MyAgreements = () => {
@@ -10,9 +11,14 @@ export const MyAgreements = () => {
   const { myAgreements } = useSelector((state) => state.user)
 
   return (
-    <div className="my-agreements account__panel"> 
-      {/* add message when 0 items*/}
-      {myAgreements.map((agreement) => <Agreement {...agreement} key={agreement.id} onClick={() => console.log(agreement.id)}/>)}
+    <div className="account__panel my-agreements"> 
+      <div className="agr-title">My Agreements</div>
+      <div className="my-agreements__list">
+        {myAgreements.length
+          ? myAgreements.map((agreement) => <AgreementCard {...agreement} key={agreement.id}/>)
+          : 'There`s any agreement.'
+        }
+      </div>
 
       <button className="account__plus" onClick={() => setOpenModal(true)}>
         <div>+</div>

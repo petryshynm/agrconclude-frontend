@@ -90,7 +90,6 @@
         }
     }
 
-    // sections 
     &-info {
         padding-top: 150px;
         height: 100vh;
@@ -98,7 +97,6 @@
             margin-bottom: 140px;
         }
         &__title {
-            // font-family: 'Montserrat';
             font-style: normal;
             font-weight: 500;
             font-size: 48px;
@@ -115,7 +113,6 @@
 
     &-about-us {
         height: 100vh;
-        // padding-bottom: 200px;
         padding-top: 100px;
         position: relative;
         .container {
@@ -141,7 +138,6 @@
         background-image: url('../../resources/images/bg-rect.png');
         padding-top: 100px;
         &__title {
-            // font-family: 'Montserrat';
             font-style: normal;
             font-weight: 700;
             font-size: 64px;
@@ -242,7 +238,6 @@
         &__paragraph {
             font-size: 18px;
             width: 100%;
-            // margin-bottom: 30px;
         }
         &__circle2 {
             height: 400px;

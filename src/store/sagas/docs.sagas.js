@@ -1,33 +1,24 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects';
 import { 
-    createDocumentActions,
     getDocumentsActions,
     getDocumentFieldsActions,
     getSignatureActions,
     createSignatureActions,
     signDocumentFieldsActions
 } from '../actions/docs/docs.actions';
-import { createDocumentEndpoint, getDocumentFieldsEndpoint, signDocumentFieldsEndpoint } from '../../services/endpoints/docs.endpoints';
+import { getDocumentFieldsEndpoint, signDocumentFieldsEndpoint } from '../../services/endpoints/docs.endpoints';
 import { copyDocumentEndpoint, createSignatureEndpoint, getDocumentsEndpoint, getFileEndpointV2, getSignatureEndpoint, giveFilePermissionEndpoint } from '../../services/endpoints/drive.endpoints';
-import { getInsertImageRule, getReplaceRule, parseDocument } from '../../services/utils';
-
-function* createDocumentWorker() {
-    try {
-        const { data } = yield call(createDocumentEndpoint);
-        yield put(createDocumentActions.success(data));
-    } catch (error) {
-        yield put(createDocumentActions.failure(error.message));
-    }
-}
+import { AgreementStatus, getInsertImageRule, getReplaceRule, parseDocument } from '../../services/utils';
+import { changeAgreementStatusActions } from '../actions/user/user.actions';
 
 function* createSignatureWorker(action) {
     const imageUrl = action.payload;
     try {
         const { data } = yield call(createSignatureEndpoint, imageUrl);
-        yield put(createDocumentActions.success(data));
-        yield put(getSignatureActions.request());
+        yield put(createSignatureActions.success(data));
+        yield put(createSignatureActions.request());
     } catch (error) {
-        yield put(createDocumentActions.failure(error.message));
+        yield put(createSignatureActions.failure(error.message));
     }
 }
 
@@ -72,7 +63,7 @@ function* getDocumentFieldsWorker(action) {
 }
 
 function* signDocumentFieldsWorker(action) {
-    const { signatureURL, fields, senderEmail } = action.payload;
+    const { signatureURL, fields, senderEmail, agreementId } = action.payload;
 
     try {
         const { data: { id: documentId } } = yield call(copyDocumentEndpoint, { fileId: action.payload.documentId })
@@ -118,6 +109,8 @@ function* signDocumentFieldsWorker(action) {
             'type': 'user',
             'emailAddress': senderEmail
         })
+
+        yield put(changeAgreementStatusActions.request({ agreementId, documentId, status: AgreementStatus.concluded}))
         yield put(signDocumentFieldsActions.success());
     } catch (error) {
         yield put(signDocumentFieldsActions.failure(error.message));
@@ -126,7 +119,6 @@ function* signDocumentFieldsWorker(action) {
 
 export function* documentsSaga() {
     yield all([
-        takeLatest(createDocumentActions.request().type, createDocumentWorker),
         takeLatest(getDocumentsActions.request().type, getDocumentsWorker),
         takeLatest(getDocumentFieldsActions.request().type, getDocumentFieldsWorker),
         takeLatest(signDocumentFieldsActions.request().type, signDocumentFieldsWorker),

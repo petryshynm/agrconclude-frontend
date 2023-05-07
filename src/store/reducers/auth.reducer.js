@@ -39,7 +39,8 @@ export const AuthReducer = (state = initialState, action) => {
                 authentificated: true,
                 profile: {
                     ...state.profile,
-                    ...getProfile(action.payload)
+                    ...action.payload, // TODO remove it
+                    // ...getProfile(action.payload)
                 }
             }
         case `${AuthTypes.LOGOUT}_SUCCESS`:

@@ -17,25 +17,25 @@ const pages = [
     component: <MyAgreements/>,
     label: "My agreements",
     id: 'my-agreements',
-    icon: '../assets/icons/handshake.svg',
+    icon: '/assets/icons/handshake.svg',
   },
   {
     component: <SignAgreements/>,
     label: "Sign agreements",
     id: 'sign-agreements',
-    icon: '../assets/icons/sign.svg',
+    icon: '/assets/icons/sign.svg',
   },
   {
     component: <Profile/>,
     label: "Profile",
     id: 'profile',
-    icon: '../assets/icons/profile.svg',
+    icon: '/assets/icons/profile.svg',
   },
   {
     component: <Templates/>,
     label: "Templates",
     id: 'templates',
-    icon: '../assets/icons/templates.svg',
+    icon: '/assets/icons/templates.svg',
   }
 ] 
 
@@ -55,10 +55,6 @@ export const Account = () => {
     dispatch(getSignatureActions.request())
   }, [dispatch]);
   
-  // const createFile = async (title) => {
-  //   dispatch(createDocumentRequest());
-  // };
-
   return (
     <div className="account">
       <Tabs

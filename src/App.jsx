@@ -10,7 +10,6 @@ import { ProtectedRoute } from './services/routes/protectedRoute';
 
 import { loginUserActions, logoutUserActions } from './store/actions/auth/auth.actions';
 import { protectedRoutes, defaultRoutes } from './services/routes/constants';
-import { Footer } from './components/Footer';
 
 import './styles/style.scss';
 
@@ -31,7 +30,9 @@ const App = () => {
   },[isAppLoading, isModalOpen])
 
   useEffect(()=>{
-    const token = localStorage.getItem('token')
+    // const token = localStorage.getItem('token')
+    // TODO remove below
+    const token = JSON.parse(localStorage.getItem('profileObj'));
     const accessToken = localStorage.getItem('accessToken')
     token && accessToken 
       ? dispatch(loginUserActions.success(token)) 
@@ -60,13 +61,7 @@ const App = () => {
                   <ProtectedRoute>{render}</ProtectedRoute>
                 }/>
               ))}
-              {defaultRoutes.map(({path, render}) => {
-                const content = <>
-                  {render}
-                  <Footer/>
-                </>
-                return <Route key={path} path={path} element={content}/>
-              })}
+              {defaultRoutes.map(({path, render}) => <Route key={path} path={path} element={render}/>)}
           </Routes>
         </main>
     </Router>

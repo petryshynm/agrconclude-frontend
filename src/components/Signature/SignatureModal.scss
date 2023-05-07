@@ -40,4 +40,11 @@
     }
 }
 
-  
+@media screen and (max-width: 550px) {
+    .signature {
+        width: 90%;
+        &__canvas {
+            width: 100%;
+        }
+    }
+}

@@ -3,7 +3,7 @@
 .tabs {
     padding: 55px 35px;
     background-color: $astronaut;
-    height: 100%;
+    height: calc(100vh - 90px);
     width: 90px;
     transition: width 0.5s ease;
     overflow: hidden;

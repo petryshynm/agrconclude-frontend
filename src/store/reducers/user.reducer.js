@@ -4,7 +4,6 @@ const initialState = {
   loading: false,
   error: false,
   message: "",
-  contracts: [],
   users: [],
   signAgreements: [],
   myAgreements: [],
@@ -14,10 +13,11 @@ const initialState = {
 export const UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case `${UserTypes.GET_USERS}_REQUEST`:
-    case `${UserTypes.GET_USER_CONTRACTS}_REQUEST`:
     case `${UserTypes.GET_MY_AGREEMENTS}_REQUEST`:
     case `${UserTypes.GET_SIGN_AGREEMENTS}_REQUEST`:
     case `${UserTypes.GET_AGREEMENT}_REQUEST`:
+    case `${UserTypes.CREATE_AGREEMENT}_REQUEST`:
+    case `${UserTypes.CHANGE_STATUS}_REQUEST`:
       return {
         ...state,
         loading: true,
@@ -25,22 +25,24 @@ export const UserReducer = (state = initialState, action) => {
         message: "",
       };
     case `${UserTypes.GET_USERS}_FAILURE`:
-    case `${UserTypes.GET_USER_CONTRACTS}_FAILURE`:
     case `${UserTypes.GET_MY_AGREEMENTS}_FAILURE`:
     case `${UserTypes.GET_SIGN_AGREEMENTS}_FAILURE`:
     case `${UserTypes.GET_AGREEMENT}_FAILURE`:
+    case `${UserTypes.CREATE_AGREEMENT}_FAILURE`:
+    case `${UserTypes.CHANGE_STATUS}_FAILURE`:
       return {
         ...state,
         loading: false,
         error: true,
         message: action.payload,
       };
-    case `${UserTypes.GET_USER_CONTRACTS}_SUCCESS`:
+    case `${UserTypes.CREATE_AGREEMENT}_SUCCESS`:
+    case `${UserTypes.CHANGE_STATUS}_SUCCESS`:
       return {
         ...state,
         loading: false,
         error: false,
-        contracts: action.payload,
+        message: "",
       };
     case `${UserTypes.GET_USERS}_SUCCESS`:
       return {

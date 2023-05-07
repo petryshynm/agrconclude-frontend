@@ -52,3 +52,12 @@
         }
     }
 }
+
+@media screen and (max-width: 750px) {
+    .form {
+        padding: 30px;
+        &_modal {
+            width: 95%;
+        }
+    }
+}
