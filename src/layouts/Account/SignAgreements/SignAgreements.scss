@@ -2,4 +2,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 40px 20px;
+    &_opened {
+        padding-bottom: 50px;
+        overflow-y: auto;
+        flex-direction: column;
+    }
 }

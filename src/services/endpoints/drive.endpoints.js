@@ -23,6 +23,15 @@ export const getFileEndpoint = (fileId) => {
   return driveInterceptor.get(`/files/${fileId}?alt=media&key=${apiKey}`);
 }
 
+export const getFileEndpointV2 = (fileId, url = 'alt=media') => {   // TODO: make it axios
+  const headers = { headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`} };
+  return fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?&key=${apiKey}&${url}`, headers);
+}
+
+export const giveFilePermissionEndpoint = (fileId, body) => {
+  return driveInterceptor.post(`/files/${fileId}/permissions`, body)
+}
+
 export const createSignatureEndpoint = (imageDataUrl) => {
   const blob = dataURIToBlob(imageDataUrl);
   const metadata = {

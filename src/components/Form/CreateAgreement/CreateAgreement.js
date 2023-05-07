@@ -29,7 +29,7 @@ export const CreateAgreementForm = () => {
   const initialValues = {
     documentId: "",
     userId: "",
-    date: "",
+    expireDate: "",
   };
 
   const tomorrowDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
@@ -38,7 +38,7 @@ export const CreateAgreementForm = () => {
   const validationSchema = Yup.object({
     documentId: Yup.string().required("Required."),
     userId: Yup.string().required("Required."),
-    date: Yup.date()
+    expireDate: Yup.date()
     .min(
       tomorrowDate,
       'The date cannot be earlier than tomorrow.'
@@ -79,17 +79,17 @@ export const CreateAgreementForm = () => {
           )}
         </Field>
       </label>
-      <label htmlFor="date" className="form__label">
-        <div>Date:</div>
+      <label htmlFor="expireDate" className="form__label">
+        <div>Expire Date:</div>
         <Field
           type="date"
           className="form__input"
-          id="date"
-          name="date"
+          id="expireDate"
+          name="expireDate"
           placeholder="Date"
           min={tomorrowString}
         />
-        <ErrorMessage className="form__error" name="date" />
+        <ErrorMessage className="form__error" name="expireDate" />
       </label>
     </Form>
   );

@@ -1,5 +1,5 @@
 import { AboutUs } from "../../layouts/AboutUs"
-import { Account } from "../../layouts/Account"
+import { Account } from "../../layouts/Account/Account"
 import { Contacts } from "../../layouts/Contacts"
 import { Faq } from "../../layouts/FAQ"
 import { Main } from "../../layouts/Main"

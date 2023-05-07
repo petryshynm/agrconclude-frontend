@@ -6,6 +6,7 @@ import { SignAgreementForm } from "../../../components/Form/SignAgreement";
 
 import './SignAgreements.scss';
 import { getDocumentFields } from "../../../services/utils";
+import classNames from "classnames";
 
 export const SignAgreements = () => {
     const [openSign, setOpenSign] = useState(false);
@@ -24,13 +25,13 @@ export const SignAgreements = () => {
 
     const onSubmit = () => {
     }
+
+    const isAgreementOpen = openSign && agreementToSign;
     return (
-      <div className="account__panel sign-agreements">
-        {openSign && agreementToSign ? (
-            <div>
-              <button onClick={closeAgreement}>go back</button>
-              <SignAgreementForm agreement={agreementToSign}/>
-            </div>
+      <div className={classNames("account__panel sign-agreements", {'sign-agreements_opened': isAgreementOpen})}>
+        {isAgreementOpen 
+          ? (
+            <SignAgreementForm onClose={closeAgreement} agreement={agreementToSign}/>
           ) : <>
             {signAgreements.map((agreement, index) => (
               <Agreement 

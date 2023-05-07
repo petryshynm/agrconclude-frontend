@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Formik } from "formik";
 import './Form.scss'
 
-export const Form = ({initialValues, validationSchema, children, onSubmit, isFormModal, submitValue }) => {
+export const Form = ({initialValues, validationSchema, children, onSubmit, isFormModal, submitValue, className }) => {
   return <Formik
     validationSchema={validationSchema}
     initialValues={initialValues}
@@ -10,11 +10,9 @@ export const Form = ({initialValues, validationSchema, children, onSubmit, isFor
   >
     {({dirty, isValid, handleSubmit}) => (
         <form 
-            className={classNames('form', { 'form_modal': isFormModal})}
+            className={classNames(`form ${className}` , { 'form_modal': isFormModal})}
             onSubmit={handleSubmit}
         >
-            {console.log(dirty, 'dirty')}
-            {console.log(isValid, 'isValid')}
             {children}
             <button
                 className="form__submit"

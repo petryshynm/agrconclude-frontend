@@ -30,7 +30,7 @@ export const parseDocument = (data) => {
       });
     }
   });
-  return placeholders;
+  return [...new Set(placeholders)];
 };
 
 export const dataURIToBlob = (imageDataUrl) => {
@@ -89,4 +89,33 @@ export const formatString = (fieldName) => {
 
   const formattedString = formattedWords.join(' ');
   return formattedString;
+}
+
+export const getReplaceRule = (text, replaceText) => {
+  return {
+      replaceAllText: {
+          containsText: {
+              text,
+              matchCase: true,
+          },
+          replaceText
+      },
+  }
+}
+
+export const getInsertImageRule = (uri, index, height = 30) => {
+  return {
+      insertInlineImage: {
+          uri,
+          location: {
+            index,
+          },
+          objectSize: {
+              height: {
+                  magnitude: height,
+                  unit: "PT",
+              },
+          },
+      }
+  }  
 }

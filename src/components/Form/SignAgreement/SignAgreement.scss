@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+// .sign-agreement-form {
+    .form {
+        width: 100%;
+        column-gap: 20px;
+        padding: 0!important;
+        flex-direction: row;
+        flex-wrap: wrap;
+        &__submit {
+            position: absolute;
+            left: 0;
+            bottom: -50px;
+        }
+        &__label {
+            width: calc(50% - 10px);
+        }
+    }
+// }

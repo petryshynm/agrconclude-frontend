@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react";
-
-import { getSignatureActions } from "../../../store/actions/docs/docs.actions";
 import { profileSocials } from "../../../services/utils";
 
 import { SignatureModal } from "../../../components/Signature";
 import { Agreement } from "../../../components/Agreement";
 
 import './Profile.scss';
+import { logoutUserActions } from "../../../store/actions/auth/auth.actions";
 
 const emailKey = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress';
 
@@ -16,20 +14,17 @@ export const Profile = () => {
     const { profile } = useSelector((state) => state.auth);
     const { signAgreements, myAgreements } = useSelector((state) => state.user)
     const { signature } = useSelector((state) => state.docs)
-    useEffect(() => {
-        dispatch(getSignatureActions.request())
-    }, [dispatch]);
 
     const onAgreementClick = (agreement) => console.log(agreement.id);
 
     return <div className='account__panel profile'>
         <div className="profile__info">
             <img
-                src={profile?.avatar_url} 
+                src={profile?.avatar_url || '../assets/icons/user.png'} 
                 alt="user"
             />
-            <div className="profile__name">{profile?.given_name} {profile?.family_name}</div>
-            <div className="profile__email">{profile?.[emailKey]}</div>
+            <div className="profile__name">Some name{profile?.given_name} {profile?.family_name}</div>
+            <div className="profile__email">Some email{profile?.[emailKey]}</div>
             <div className="profile__amounts">
                 <div>
                     <div>{signAgreements?.filter((agr) => agr.status === 'concluded').length}</div>
@@ -63,7 +58,7 @@ export const Profile = () => {
             <div className="profile__socials">
                 {profileSocials.map((media) => <img src={`/assets/icons/${media}.svg`} key={media} alt={media} />)}
             </div>
-            <button className="profile__button profile__mb">Exit</button>
+            <button className="profile__button profile__mb" onClick={() => dispatch(logoutUserActions.request()) }>Exit</button>
             <button className="profile__button">Edit Profile</button>
         </div>
         <div className="profile__content">

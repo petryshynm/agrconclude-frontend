@@ -5,30 +5,33 @@ import * as Yup from "yup";
 
 import { Form } from "../Form";
 
-import { getDocumentFieldsActions } from "../../../store/actions/docs/docs.actions";
+import { getDocumentFieldsActions, signDocumentFieldsActions } from "../../../store/actions/docs/docs.actions";
 import { formatString } from "../../../services/utils";
 
-import "../Form/Form.scss";
+import './SignAgreement.scss';
+import { Select } from "../../Select";
 
-export const SignAgreementForm = ({ agreement }) => {
+export const SignAgreementForm = ({ agreement, onClose }) => {
   const dispatch = useDispatch();
-  const { signFields } = useSelector((state) => state.docs);
+  const { signFields, signature, signatureURL } = useSelector((state) => state.docs);
+  const { documentId, sender, createdAt, expireAt, label } = agreement
 
-  console.log(signFields);
-
+  console.log(agreement);
   useEffect(() => {
-    dispatch(getDocumentFieldsActions.request(agreement.documentId));
-  }, [dispatch, agreement]);
+    dispatch(getDocumentFieldsActions.request(documentId));
+  }, [dispatch, agreement, documentId]);
 
-  const onSubmit = (values) => {
-    console.log(JSON.stringify(values, null, 2));
-    console.log(values);
-  };
+  const onSubmit = (fields) => {
+    const signInfo = { 
+      senderEmail: sender.email, 
+      documentId, 
+      signatureURL, 
+      fields
+    }
+    dispatch(signDocumentFieldsActions.request(signInfo));
+  }
 
-  const initialValues = signFields.reduce(
-    (prev, field) => ({ ...prev, [field]: "" }),
-    {}
-  );
+  const initialValues = signFields.reduce((prev, field) => ({ ...prev, [field]: "" }), {});
 
   const validationSchema = Yup.object(
     signFields.reduce(
@@ -51,8 +54,17 @@ export const SignAgreementForm = ({ agreement }) => {
           placeholder={formatString(field)}
         />
       );
-    // } else if (field.includes("sign")) {
-    //   return <div>sign. field name: {field}</div>;
+    } else if (field.includes("sign")) {
+      return <Field id={field} className="form__input" name={field}>
+        {({ field, meta }) => (
+          <>
+            <Select {...field} options={[{ label: 'Your sign', image: signature, value: signature}]} />
+            {meta.touched && meta.error && (
+              <div className="form__error">{meta.error}</div>
+            )}
+          </>
+        )}
+      </Field>
     } else {
       return (
         <Field
@@ -64,20 +76,30 @@ export const SignAgreementForm = ({ agreement }) => {
       );
     }
   };
-  console.log(initialValues)
   return (
-    <Form
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-      submitValue="Sign"
-    >
-      {signFields.map((field) => (
-        <label key={field} htmlFor={field} className="form__label">
-          {generateSignField(field)}
-          <ErrorMessage className="form__error" name={field} />
-        </label>
-      ))}
-    </Form>
+    <>
+      <button classNames="sign-agreement-form" onClick={onClose}>back</button>
+      <div>
+        <div>Created: {label}</div>
+        <div>Created: {createdAt}</div>
+        <div>Expire: {expireAt}</div>
+        <div>Sender: {sender.email}</div>
+      </div>
+      <Form
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+        submitValue="Sign"
+        className="sign-agreement-form"
+      >
+        {signFields.map((field) => (
+          <label key={field} htmlFor={field} className="form__label">
+            <div>{formatString(field)}:</div>
+            {generateSignField(field)}
+            <ErrorMessage className="form__error" name={field} />
+          </label>
+        ))}
+      </Form>
+    </>
   );
 };

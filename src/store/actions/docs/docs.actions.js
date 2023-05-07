@@ -5,9 +5,9 @@ export const createDocumentActions = createAction(DocsTypes.CREATE_DOC);
 
 export const getDocumentsActions = createAction(DocsTypes.GET_DOCUMENTS);
 
-export const copyDocumentActions = createAction(DocsTypes.COPY_DOC);
-
 export const getDocumentFieldsActions = createAction(DocsTypes.GET_DOCUMENT_FIELDS);
+
+export const signDocumentFieldsActions = createAction(DocsTypes.SIGN_DOCUMENT_FIELDS);
 
 export const getSignatureActions = createAction(DocsTypes.GET_SIGNATURE);
 

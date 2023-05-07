@@ -10,6 +10,7 @@ import "./Account.scss";
 import { getMyAgreementsActions, getSignAgreementsActions } from "../../store/actions/user/user.actions";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { getSignatureActions } from "../../store/actions/docs/docs.actions";
 
 const pages = [
   {
@@ -51,6 +52,7 @@ export const Account = () => {
   useEffect(() => {
     dispatch(getSignAgreementsActions.request());
     dispatch(getMyAgreementsActions.request());
+    dispatch(getSignatureActions.request())
   }, [dispatch]);
   
   // const createFile = async (title) => {
