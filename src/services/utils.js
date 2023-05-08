@@ -128,9 +128,22 @@ export const getInsertImageRule = (uri, index, height = 30) => {
 }
 
 export const AgreementStatus = {
+  pending: 'pending',
   concluded: 'concluded',
   declined: 'declined',
-  pending: 'pending',
   signed: 'signed',
   unsigned: 'unsigned',
+}
+
+export const getAgreementStatus = (status) => {
+  if (typeof status === 'number') return Object.values(AgreementStatus)[status]
+} 
+
+export const formatDate = (date) => {
+  const dateObj = new Date(date);
+  const day = dateObj.getUTCDate().toString().padStart(2, '0');
+  const month = (dateObj.getUTCMonth() + 1).toString().padStart(2, '0');
+  const year = dateObj.getUTCFullYear().toString();
+  const formattedDate = `${day}-${month}-${year}`;
+  return formattedDate;
 }

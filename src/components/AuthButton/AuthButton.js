@@ -12,9 +12,7 @@ export const AuthButton = () => {
     const dispatch = useDispatch();
 
     const onLoginSuccess = (data) => {
-        const { tokenId, accessToken, profileObj } = data;
-        console.log(data)
-        localStorage.setItem('profileObj', JSON.stringify(profileObj))  //TODO remove it
+        const { tokenId, accessToken } = data;
         localStorage.setItem('accessToken', accessToken)
         dispatch(loginUserActions.request({tokenId}))  
     };

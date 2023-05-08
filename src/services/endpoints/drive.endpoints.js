@@ -5,7 +5,7 @@ const apiKey = process.env.REACT_APP_API_KEY || "";
 
 export const getDocumentsEndpoint = (pageSize = 10) => {
   return driveInterceptor.get(
-    `/files?pageSize=${pageSize}&q=mimeType='application/vnd.google-apps.document' and name contains 'AGC'&fields=files(id, name)&trashed=false&key=${apiKey}`
+    `/files?pageSize=${pageSize}&q=mimeType='application/vnd.google-apps.document'  and trashed=false and name contains 'AGC_TEMPLATE'&fields=files(id, name)&key=${apiKey}`
   );
 };
 
@@ -30,6 +30,13 @@ export const getFileEndpointV2 = (fileId, url = 'alt=media') => {   // TODO: mak
 
 export const giveFilePermissionEndpoint = (fileId, body) => {
   return driveInterceptor.post(`/files/${fileId}/permissions`, body)
+}
+
+export const openFilePermissionEndpoint = (fileId) => {
+  return driveInterceptor.post(`/files/${fileId}/permissions`, {
+    'role': 'reader',
+    'type': 'anyone'
+  })
 }
 
 export const createSignatureEndpoint = (imageDataUrl) => {

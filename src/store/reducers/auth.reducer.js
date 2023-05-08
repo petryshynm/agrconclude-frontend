@@ -13,6 +13,8 @@ const initialState = {
     }
 }
 
+const emailKey = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress';
+
 export const AuthReducer = (state = initialState, action) => {
     switch (action.type){
         case `${AuthTypes.LOGIN}_REQUEST`:
@@ -32,6 +34,8 @@ export const AuthReducer = (state = initialState, action) => {
                 message: action.payload
             }
         case `${AuthTypes.LOGIN}_SUCCESS`:
+            const googleProfile = getProfile(action.payload)
+            googleProfile.email = googleProfile[emailKey]
             return {
                 ...state,
                 loading: false,
@@ -39,8 +43,7 @@ export const AuthReducer = (state = initialState, action) => {
                 authentificated: true,
                 profile: {
                     ...state.profile,
-                    ...action.payload, // TODO remove it
-                    // ...getProfile(action.payload)
+                    ...googleProfile
                 }
             }
         case `${AuthTypes.LOGOUT}_SUCCESS`:

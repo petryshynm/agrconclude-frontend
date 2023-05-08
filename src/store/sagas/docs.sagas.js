@@ -7,16 +7,16 @@ import {
     signDocumentFieldsActions
 } from '../actions/docs/docs.actions';
 import { getDocumentFieldsEndpoint, signDocumentFieldsEndpoint } from '../../services/endpoints/docs.endpoints';
-import { copyDocumentEndpoint, createSignatureEndpoint, getDocumentsEndpoint, getFileEndpointV2, getSignatureEndpoint, giveFilePermissionEndpoint } from '../../services/endpoints/drive.endpoints';
-import { AgreementStatus, getInsertImageRule, getReplaceRule, parseDocument } from '../../services/utils';
+import { copyDocumentEndpoint, createSignatureEndpoint, getDocumentsEndpoint, getFileEndpointV2, getSignatureEndpoint, giveFilePermissionEndpoint, openFilePermissionEndpoint } from '../../services/endpoints/drive.endpoints';
+import { getInsertImageRule, getReplaceRule, parseDocument } from '../../services/utils';
 import { changeAgreementStatusActions } from '../actions/user/user.actions';
 
 function* createSignatureWorker(action) {
     const imageUrl = action.payload;
     try {
-        const { data } = yield call(createSignatureEndpoint, imageUrl);
-        yield put(createSignatureActions.success(data));
-        yield put(createSignatureActions.request());
+        const { data: { id } } = yield call(createSignatureEndpoint, imageUrl);
+        yield call(openFilePermissionEndpoint, id);
+        yield put(createSignatureActions.success());
     } catch (error) {
         yield put(createSignatureActions.failure(error.message));
     }
@@ -63,9 +63,10 @@ function* getDocumentFieldsWorker(action) {
 }
 
 function* signDocumentFieldsWorker(action) {
-    const { signatureURL, fields, senderEmail, agreementId } = action.payload;
+    const { signatureURL, fields, senderEmail, contractId } = action.payload;
 
     try {
+        // TODO давати іншу назву файлу. В якій вже не буде AGC_TEMPLATE. Наприклад AGRCONCLUDE.
         const { data: { id: documentId } } = yield call(copyDocumentEndpoint, { fileId: action.payload.documentId })
         const toUpdateFields = { requests: [] }        
 
@@ -110,7 +111,7 @@ function* signDocumentFieldsWorker(action) {
             'emailAddress': senderEmail
         })
 
-        yield put(changeAgreementStatusActions.request({ agreementId, documentId, status: AgreementStatus.concluded}))
+        yield put(changeAgreementStatusActions.request({ contractId, documentId, status: 1}))
         yield put(signDocumentFieldsActions.success());
     } catch (error) {
         yield put(signDocumentFieldsActions.failure(error.message));

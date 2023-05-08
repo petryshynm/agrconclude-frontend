@@ -14,8 +14,9 @@ import './SignAgreement.scss';
 export const SignAgreementForm = ({ agreement, onClose }) => {
   const dispatch = useDispatch();
   const { signFields, signature, signatureURL } = useSelector((state) => state.docs);
-  const { documentId, sender, id: agreementId }  = agreement
+  const { documentId, creator, id: contractId } = agreement
 
+  console.log(agreement);
   useEffect(() => {
     dispatch(getDocumentFieldsActions.request(documentId));
     (!signature || !signatureURL) && dispatch(getSignatureActions.request())
@@ -23,11 +24,11 @@ export const SignAgreementForm = ({ agreement, onClose }) => {
 
   const onSubmit = (fields) => {
     const signInfo = { 
-      senderEmail: sender.email, 
+      senderEmail: creator.email, 
       documentId, 
       signatureURL, 
       fields,
-      agreementId
+      contractId
     }
     dispatch(signDocumentFieldsActions.request(signInfo));
   }

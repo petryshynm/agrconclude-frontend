@@ -30,9 +30,7 @@ const App = () => {
   },[isAppLoading, isModalOpen])
 
   useEffect(()=>{
-    // const token = localStorage.getItem('token')
-    // TODO remove below
-    const token = JSON.parse(localStorage.getItem('profileObj'));
+    const token = localStorage.getItem('token')
     const accessToken = localStorage.getItem('accessToken')
     token && accessToken 
       ? dispatch(loginUserActions.success(token)) 

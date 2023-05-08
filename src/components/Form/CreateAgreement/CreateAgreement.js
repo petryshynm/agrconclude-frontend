@@ -14,8 +14,6 @@ import "../Form/Form.scss";
 export const CreateAgreementForm = () => {
   const { documents } = useSelector((state) => state.docs);
   const { users } = useSelector((state) => state.user);
-  // TODO потім не треба буде profile, бо воно береться з токена.
-  const { profile } = useSelector((state) => state.auth); 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,13 +22,12 @@ export const CreateAgreementForm = () => {
   }, [dispatch]);
 
   const onSubmit = (agreementInfo) => {
-  // TODO потім не треба буде profile, бо воно береться з токена.
-    dispatch(createAgreementActions.request({ profile, agreementInfo }))
+    dispatch(createAgreementActions.request(agreementInfo))
   };
 
   const initialValues = {
     documentId: "",
-    user: {},
+    clientId: "",
     label: "",
     expireAt: "",
     description: "",
@@ -41,7 +38,7 @@ export const CreateAgreementForm = () => {
 
   const validationSchema = Yup.object({
     documentId: Yup.string().required("Required."),
-    user: Yup.object().required("Required."),
+    clientId: Yup.string().required("Required."),
     description: Yup.string().required("Required"),
     label: Yup.string().required("Required"),
     expireAt: Yup.date()
@@ -74,7 +71,7 @@ export const CreateAgreementForm = () => {
       </label>
       <label htmlFor="users" className="form__label">
         <div>Receiver:</div>
-        <Field id="users" className="form__input" name="user">
+        <Field id="users" className="form__input" name="clientId">
           {({ field, meta }) => (
             <>
               <Select {...field} options={users} />

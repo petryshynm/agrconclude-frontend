@@ -2,10 +2,11 @@ import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import "./AgreementCard.scss";
+import { formatDate } from "../../services/utils";
 
 export const AgreementCard = ({ id, label, description, createdAt, status }) => {
   const navigate = useNavigate();
-  
+
   const onAgreementClick = () => {
     navigate(`/account/agreement/${id}`)
   }
@@ -21,7 +22,7 @@ export const AgreementCard = ({ id, label, description, createdAt, status }) => 
           </div>
           <div className="agreement-card__info">
               <div>Status: <span>{status}</span></div>
-              <div>Created: <span>{createdAt}</span></div>
+              <div>Created: <span>{formatDate(createdAt)}</span></div>
           </div>
       </div>
       <div className="agreement-card__status"></div>

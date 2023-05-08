@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { changeAgreementStatusActions, getAgreementActions } from '../../store/actions/user/user.actions';
 import { SignAgreementForm } from '../../components/Form/SignAgreement';
+import { AgreementStatus, formatDate, getAgreementStatus, openDocument } from '../../services/utils';
 
 import './Agreement.scss';
-import { AgreementStatus, openDocument } from '../../services/utils';
 
 export const Agreement = () => {
     const { agrId } = useParams();
     const dispatch = useDispatch();
-    const userId = useSelector(state => state.auth.profile.googleId);
     const { agreement } = useSelector(state => state.user);
+    // const userId = useSelector(state => state.auth.profile.googleId); //TODO треба робити запит на бек, шоб отримувати userDetails
+    const userId = agreement?.client?.id;
     const [openSign, setOpenSign] = useState(false);
     const [agreementToSign, setAgreementToSign] = useState(null);
     
@@ -31,22 +32,23 @@ export const Agreement = () => {
     }
 
     const changeStatus = (status) => {
-        dispatch(changeAgreementStatusActions.request({ agreementId: agreement.id, status }))
+        dispatch(changeAgreementStatusActions.request({ contractId: agreement.id, status}))
     }
 
     const renderPermissionPannel = (agreement) => {
-        if (agreement.receiver.id !== userId && agreement.sender.id !== userId){
+        const agreementStatus = getAgreementStatus(agreement.status)
+        if (agreement.client.id !== userId && agreement.creator.id !== userId){
             return <div>
-                <div className={`agreement__status agreement__status_${agreement.status}`}>
-                    Status: <span>{agreement.status}</span>
+                <div className={`agreement__status agreement__status_${agreementStatus}`}>
+                    Status: <span>{agreementStatus}</span>
                 </div>
             </div>
         }
-        if (agreement.receiver.id === userId) {
-            const isStatusPending = agreement.status === AgreementStatus.pending
-            const isStatusUnsigned = agreement.status !== AgreementStatus.concluded 
+        if (agreement.client.id === userId) {
+            const isStatusPending = agreementStatus === AgreementStatus.pending
+            const isStatusUnsigned = agreementStatus !== AgreementStatus.concluded 
             const statusLabel = isStatusUnsigned 
-                ? agreement.status === AgreementStatus.declined ? agreement.status : AgreementStatus.unsigned
+                ? agreementStatus === AgreementStatus.declined ? agreementStatus : AgreementStatus.unsigned
                 : AgreementStatus.signed;
             return <div>
                 <div className={`agreement__status agreement__status_${statusLabel}`}>
@@ -54,18 +56,19 @@ export const Agreement = () => {
                 </div>
                 <div className='agreement__buttons'>
                     {isStatusPending && <button className="agr-button agr-button_inverted" onClick={() => openAgreement(agreement)}>Sign agreement</button>}
-                    {isStatusPending && <button className="agr-button" onClick={() => changeStatus(AgreementStatus.declined)}>Decline agreement</button>}
+                    {isStatusPending && <button className="agr-button" onClick={() => changeStatus(2)}>Decline agreement</button>}
                     <button className="agr-button agr-button_inverted" onClick={() => openDocument(agreement.documentId)}>Open agreement</button>
                 </div>
             </div>
         } else {
-            const isStatusPending = agreement.status === AgreementStatus.pending
+            const isStatusPending = agreementStatus === AgreementStatus.pending
             return <div>
-                <div className={`agreement__status agreement__status_${agreement.status}`}>
-                    Status: <span>{agreement.status}</span>
+                <div className={`agreement__status agreement__status_${agreementStatus}`}>
+                    Status: <span>{agreementStatus}</span>
                 </div>
                 <div className='agreement__buttons'>
-                    {isStatusPending && <button className="agr-button" onClick={() => changeStatus(AgreementStatus.declined)}>Decline agreement</button>}
+                    {/* TODO Додати модалку підтвердження. Чи я точно хочу відхилити */}
+                    {isStatusPending && <button className="agr-button" onClick={() => changeStatus(2)}>Decline agreement</button>} 
                     <button className="agr-button agr-button_inverted" onClick={() => openDocument(agreement.documentId)}>Open agreement</button>
                 </div>
             </div>
@@ -74,7 +77,7 @@ export const Agreement = () => {
             
     if (!agreement) return <div className='agreement'>There`s no such agreement</div>    
 
-    const { label, description, expireAt, receiver, createdAt, sender } = agreement;
+    const { label, description, expireAt, client, createdAt, creator } = agreement;
     const isAgreementOpen = openSign && agreementToSign;
 
     if (isAgreementOpen) {
@@ -86,20 +89,20 @@ export const Agreement = () => {
     return <div className='agreement'>
         <div className="agreement__title">{label}</div>
         <div className="agreement__info">
-            <div className="agreement__info-item"><span>Created:</span> {createdAt}</div>
-            <div className="agreement__info-item"><span>Expire:</span> {expireAt}</div>
+            <div className="agreement__info-item"><span>Created:</span> {formatDate(createdAt)}</div>
+            <div className="agreement__info-item"><span>Expire:</span> {formatDate(expireAt)}</div>
             <div className="agreement__info-user">
                 <span>Sender:</span>
                 <div> 
-                    <img src={sender.avatar_url ? sender.avatar_url : '/assets/icons/user.png'} alt="avatar"/>
-                    {sender.email}
+                    <img src={creator.avatarUrl ? creator.avatarUrl : '/assets/icons/user.png'} alt="avatar"/>
+                    {creator.email}
                 </div>
             </div>
             <div className="agreement__info-user">
                 <span>Receiver:</span>
                 <div> 
-                    <img src={receiver.avatar_url ? receiver.avatar_url : '/assets/icons/user.png'} alt="avatar"/>
-                    {receiver.email}
+                    <img src={client.avatarUrl ? client.avatarUrl : '/assets/icons/user.png'} alt="avatar"/>
+                    {client.email}
                 </div>
             </div>
         </div>

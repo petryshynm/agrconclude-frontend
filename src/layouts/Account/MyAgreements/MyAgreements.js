@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 
 import { CreateAgreementForm } from "../../../components/Form/CreateAgreement/CreateAgreement";
 import { AgreementCard } from "../../../components/AgreementCard";
+import { getAgreementStatus } from "../../../services/utils";
+
 import "./MyAgreements.scss";
 
 export const MyAgreements = () => {
@@ -15,7 +17,7 @@ export const MyAgreements = () => {
       <div className="agr-title">My Agreements</div>
       <div className="my-agreements__list">
         {myAgreements.length
-          ? myAgreements.map((agreement) => <AgreementCard {...agreement} key={agreement.id}/>)
+          ? myAgreements.map((agreement) => <AgreementCard {...agreement} status={getAgreementStatus(agreement.status)} key={agreement.id}/>)
           : 'There`s any agreement.'
         }
       </div>
