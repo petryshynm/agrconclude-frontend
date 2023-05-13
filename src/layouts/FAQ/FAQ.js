@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useOnClickOutside } from '../../services/hooks/useClickOutside';
 
 import './FAQ.scss'
+import { PageWrapper } from '../PageWrapper';
 
 const FaqItem = ({title, description}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,10 @@ const faqs = [
 ]
 
 export const Faq = () => {
-    return <div className="faq">
-        {faqs.map((question, index) => <FaqItem key={index} {...question}/>)}
-    </div>
+    return <PageWrapper>
+        <div className="faq">
+            {faqs.map((question, index) => <FaqItem key={index} {...question}/>)}
+        </div>
+    </PageWrapper>
+    
 }

@@ -52,40 +52,6 @@ export const dataURIToBlob = (imageDataUrl) => {
   return blob;
 };
 
-export const socials = [
-  {},
-  {},
-  {
-    icon: 'twitter',
-    color: 'astral',
-  },
-  {},
-  {
-    icon: 'facebook',
-    color: 'carolina',
-  },
-  {
-    icon: 'instagram',
-    color: 'steel',
-  },
-  {
-    icon: 'phone',
-    color: 'lapis',
-  },
-  {},
-  {
-    icon: 'mail',
-    color: 'lapis',
-  },
-];
-
-export const profileSocials = [
-  'profile-facebook',
-  'profile-twitter',
-  'profile-google',
-  'profile-linkedin'
-]
-
 export const formatString = (fieldName) => {
   const formattedFieldName = fieldName.replace(/_/g, ' ');
   const words = formattedFieldName.match(/[A-Za-z][a-z]*/g);
@@ -147,3 +113,46 @@ export const formatDate = (date) => {
   const formattedDate = `${day}-${month}-${year}`;
   return formattedDate;
 }
+
+
+export const socials = [
+  {},
+  {},
+  {
+    icon: 'twitter',
+    color: 'astral',
+  },
+  {},
+  {
+    icon: 'facebook',
+    color: 'carolina',
+  },
+  {
+    icon: 'instagram',
+    color: 'steel',
+  },
+  {
+    icon: 'phone',
+    color: 'lapis',
+  },
+  {},
+  {
+    icon: 'mail',
+    color: 'lapis',
+  },
+];
+
+export const profileSocials = [
+  'profile-facebook',
+  'profile-twitter',
+  'profile-google',
+  'profile-linkedin'
+]
+
+export const contactsSocials = [
+  'contacts-twitter',
+  'contacts-instagram',
+  'contacts-facebook',
+  'contacts-phone',
+  'contacts-mail',
+]

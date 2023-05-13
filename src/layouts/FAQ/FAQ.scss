@@ -1,10 +1,13 @@
 @import '../../styles/variables.scss';
 
 .faq {
-    max-width: 70%;
+    max-width: 65%;
     margin: 0 auto;
-    margin-top: 90px;
     padding: 70px;
+    margin-top: 50px;
+    border-radius: 20px;
+    background: rgba(231, 243, 252, 0.7);
+    backdrop-filter: blur(20px);
     &-item {
         cursor: pointer;
         border-bottom: 2px solid $astral;
@@ -21,6 +24,7 @@
             justify-content: space-between;
             align-items: center;
             height: 80px;
+            font-weight: bold;
         }
         &__content {
             padding: 20px;
