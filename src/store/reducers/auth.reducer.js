@@ -19,6 +19,8 @@ export const AuthReducer = (state = initialState, action) => {
     switch (action.type){
         case `${AuthTypes.LOGIN}_REQUEST`:
         case `${AuthTypes.LOGOUT}_REQUEST`:
+        case `${AuthTypes.EDIT_PROFILE}_REQUEST`:
+        case `${AuthTypes.GET_PROFILE}_REQUEST`:
             return {
                 ...state,
                 loading: true,
@@ -27,11 +29,24 @@ export const AuthReducer = (state = initialState, action) => {
             }
         case `${AuthTypes.LOGIN}_FAILURE`:
         case `${AuthTypes.LOGOUT}_FAILURE`:
+        case `${AuthTypes.EDIT_PROFILE}_FAILURE`:
+        case `${AuthTypes.GET_PROFILE}_FAILURE`:
             return {
                 ...state,
                 loading: false,
                 error: true,
                 message: action.payload
+            }
+        case `${AuthTypes.GET_PROFILE}_SUCCESS`:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                message: '',
+                profile: {
+                    ...state.profile,
+                    ...action.payload
+                }
             }
         case `${AuthTypes.LOGIN}_SUCCESS`:
             const googleProfile = getProfile(action.payload)
@@ -53,6 +68,13 @@ export const AuthReducer = (state = initialState, action) => {
                 error: false,
                 authentificated: false,
                 profile: initialState.profile,
+            }
+        case `${AuthTypes.EDIT_PROFILE}_SUCCESS`:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                message: ''
             }
         default:
             return state

@@ -5,7 +5,7 @@ const apiKey = process.env.REACT_APP_API_KEY || "";
 
 export const getDocumentsEndpoint = (pageSize = 10) => {
   return driveInterceptor.get(
-    `/files?pageSize=${pageSize}&q=mimeType='application/vnd.google-apps.document'  and trashed=false and name contains 'AGC_TEMPLATE'&fields=files(id, name)&key=${apiKey}`
+    `/files?pageSize=${pageSize}&q=mimeType='application/vnd.google-apps.document'  and trashed=false and name contains 'AGC_TEMPLATE' and 'me' in owners&fields=files(id, name)&key=${apiKey}`
   );
 };
 

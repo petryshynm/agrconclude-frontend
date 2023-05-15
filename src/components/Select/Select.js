@@ -5,7 +5,7 @@ import './Select.scss';
 import { useOnClickOutside } from "../../services/hooks/useClickOutside";
 import { useField } from "formik";
 
-export const Select = ({ options, ...rest }) => {
+export const Select = ({ options, shouldSendObject, ...rest }) => {
   const [,, { setValue }] = useField(rest)
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -16,7 +16,11 @@ export const Select = ({ options, ...rest }) => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    setValue(option.value)
+    if (shouldSendObject) {
+      setValue(option)
+    } else {
+      setValue(option.value)
+    }
   };
 
   const Option = ({label, image}) => {

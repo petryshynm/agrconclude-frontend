@@ -1,4 +1,4 @@
-import { contactsSocials } from '../../services/utils'
+import { contactsSocials } from '../../services/constants'
 import { PageWrapper } from '../PageWrapper'
 import GoogleMapReact from 'google-map-react';
 

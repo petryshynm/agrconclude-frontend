@@ -27,7 +27,7 @@ export const CreateAgreementForm = () => {
 
   const initialValues = {
     documentId: "",
-    clientId: "",
+    client: {},
     label: "",
     expireAt: "",
     description: "",
@@ -38,7 +38,7 @@ export const CreateAgreementForm = () => {
 
   const validationSchema = Yup.object({
     documentId: Yup.string().required("Required."),
-    clientId: Yup.string().required("Required."),
+    client: Yup.object().required("Required."),
     description: Yup.string().required("Required"),
     label: Yup.string().required("Required"),
     expireAt: Yup.date()
@@ -71,10 +71,10 @@ export const CreateAgreementForm = () => {
       </label>
       <label htmlFor="users" className="form__label">
         <div>Receiver:</div>
-        <Field id="users" className="form__input" name="clientId">
+        <Field id="users" className="form__input" name="client">
           {({ field, meta }) => (
             <>
-              <Select {...field} options={users} />
+              <Select {...field} shouldSendObject options={users} />
               {meta.touched && meta.error && (
                 <div className="form__error">{meta.error}</div>
               )}

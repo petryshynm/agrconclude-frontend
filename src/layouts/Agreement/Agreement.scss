@@ -1,94 +1,126 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .agreement {
+  background-color: white;
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 150px;
+  display: flex;
+  box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  &__sign-form {
     padding: 30px;
-    width: 80%;
-    margin: 0 auto;
-    margin-top: 90px;
-    &__description {
-        margin: 30px 0;
-        color: $dove-gray;
-        text-align: center;
+    column-gap: 20px;
+    max-width: initial;
+    padding-bottom: 60px;
+  }
+  &__content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: flex-start;
+    flex: 1;
+  }
+  &__description {
+    margin: 30px 0;
+    color: $dove-gray;
+    text-align: center;
+  }
+  &__buttons {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+  &__title {
+    text-transform: uppercase;
+    color: $astral;
+    font-size: 24px;
+    text-align: left;
+    font-weight: bold;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: flex-start;
+    flex: 1;
+    &-item {
+      font-size: 18px;
     }
-    &__buttons {
-        margin-top: 10px;
+    &-user {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      div {
         display: flex;
         align-items: center;
         column-gap: 10px;
+      }
+      img {
+        border-radius: 50%;
+        height: 30px;
+      }
     }
-    &__title {
-        color: $astral;
-        font-size: 24px;
-        text-align: center;
-        font-weight: bold;
+    span {
+      font-weight: bold;
+      color: $astral;
     }
-    &__info {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-        row-gap: 5px;
-        align-items: flex-end;
-        &-item {
-            font-size: 18px;
-        }
-        &-user {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            div {
-                display: flex;
-                align-items: center;
-                column-gap: 10px;
-            }
-            img {
-                border-radius: 50%;
-                height: 30px;
-            }
-        }
-        span {
-            font-weight: bold;
-            color: $astral;
-        }
+  }
+  &__status-bar {
+    width: 100px;
+  }
+
+  &_pending {
+    .agreement__status span {
+      color: $pending;
     }
-    &__status {
-        span {
-            font-weight: bold;
-        }
-        &_pending span {
-            color: $pending;
-        }
-        &_concluded span {
-            color: $concluded;
-        }
-        &_declined span {
-            color: $declined;
-        }
-        &_unsigned span {
-            color: $unsigned;
-        }
-        &_signed span {
-            color: $astral;
-        }
+    .agreement__status-bar {
+      background-color: $pending;
     }
+  }
+  &_concluded {
+    .agreement__status span {
+      color: $concluded;
+    }
+    .agreement__status-bar {
+      background-color: $concluded;
+    }
+  }
+  &_declined {
+    .agreement__status span {
+      color: $declined;
+    }
+    .agreement__status-bar {
+      background-color: $declined;
+    }
+  }
+  &_unsigned {
+    .agreement__status span {
+      color: $unsigned;
+    }
+    .agreement__status-bar {
+      background-color: $unsigned;
+    }
+  }
+  &_signed {
+    .agreement__status span {
+      color: $astral;
+    }
+    .agreement__status-bar {
+      background-color: $astral;
+    }
+  }
 }
 
 @media screen and (max-width: 550px) {
-    .agreement {
-        width: 100%;
-        &__info {
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            &-user {
-                align-items: center;
-                justify-content: center;
-            }
-        }
-        &__status {
-            text-align: center;
-        }
-        &__buttons {
-            justify-content: center;
-        }
+  .agreement {
+    width: 95%;
+    &__content {
+        padding: 20px;
     }
+  }
 }

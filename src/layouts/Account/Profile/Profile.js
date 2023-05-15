@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AgreementStatus, getAgreementStatus, profileSocials } from "../../../services/utils";
+import { useMediaQuery } from "@mui/material";
 
+import { getAgreementStatus, getAgreementStatusLabel } from "../../../services/utils";
 import { SignatureModal } from "../../../components/Signature";
 import { AgreementCard } from "../../../components/AgreementCard";
 
-import "./Profile.scss";
+import { AgreementStatus, profileSocials } from "../../../services/constants";
 import { logoutUserActions } from "../../../store/actions/auth/auth.actions";
-import { useMediaQuery } from "@mui/material";
+
+import "./Profile.scss";
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,6 @@ export const Profile = () => {
   const { signature } = useSelector((state) => state.docs);
   const agreementsVisible = useMediaQuery("(min-width: 821px)");
 
-  console.log(profile);
   return (
     <div className="account__panel profile">
       <div className="profile__info">
@@ -76,26 +77,34 @@ export const Profile = () => {
       <div className="profile__content">
         {agreementsVisible && (
           <>
-            <div className="profile__content-label">Last Sent Agreements</div>
-            <div className="profile__content-block">
-              {myAgreements.slice(0, 3).map((agreement) => (
-                <AgreementCard
-                  {...agreement}
-                  status={getAgreementStatus(agreement.status)}
-                  key={agreement.id}
-                />
-              ))}
-            </div>
-            <div className="profile__content-label">Last Sign Agreements</div>
-            <div className="profile__content-block">
-              {signAgreements.slice(0, 3).map((agreement) => (
-                <AgreementCard
-                  {...agreement}
-                  status="unsigned"
-                  key={agreement.id}
-                />
-              ))}
-            </div>
+            {myAgreements.length ? (
+              <>
+                <div className="profile__content-label">Last Sent Agreements</div>
+                <div className="profile__content-block">
+                  {myAgreements.slice(0, 3).map((agreement) => (
+                    <AgreementCard
+                      {...agreement}
+                      status={getAgreementStatusLabel(agreement.status, false)}
+                      key={agreement.id}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : null}
+            {signAgreements.length ? (
+              <>
+                <div className="profile__content-label">Last Sign Agreements</div>
+                <div className="profile__content-block">
+                  {signAgreements.slice(0, 3).map((agreement) => (
+                    <AgreementCard
+                      {...agreement}
+                      status={getAgreementStatusLabel(agreement.status)}
+                      key={agreement.id}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : null}
           </>
         )}
         <div className="profile__content-label">Signature</div>

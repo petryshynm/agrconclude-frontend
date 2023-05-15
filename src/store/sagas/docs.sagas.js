@@ -17,6 +17,7 @@ function* createSignatureWorker(action) {
         const { data: { id } } = yield call(createSignatureEndpoint, imageUrl);
         yield call(openFilePermissionEndpoint, id);
         yield put(createSignatureActions.success());
+        yield put(getSignatureActions.request())
     } catch (error) {
         yield put(createSignatureActions.failure(error.message));
     }
@@ -39,14 +40,18 @@ function* getDocumentsWorker(action) {
 function* getSignatureWorker() {
     try {
         const { data } = yield call(getSignatureEndpoint)
-        const fileId = data.files[0].id;
-        const response = yield call(getFileEndpointV2, fileId)
-        const responseBlob = yield response.blob();
-        const responseForLink = yield call(getFileEndpointV2, fileId, '&fields=webContentLink')
-        const responseJson = yield responseForLink.json();
-        const signature = URL.createObjectURL(responseBlob);
-        const signatureURL = responseJson.webContentLink
-        yield put(getSignatureActions.success({signatureURL, signature}));
+        const fileId = data.files[0]?.id;
+        if (fileId) {
+            const response = yield call(getFileEndpointV2, fileId)
+            const responseBlob = yield response.blob();
+            const responseForLink = yield call(getFileEndpointV2, fileId, '&fields=webContentLink')
+            const responseJson = yield responseForLink.json();
+            const signature = URL.createObjectURL(responseBlob);
+            const signatureURL = responseJson.webContentLink
+            yield put(getSignatureActions.success({signatureURL, signature}));
+        } else {
+            yield put(getSignatureActions.success({}));
+        }
     } catch (error) {
         yield put(getSignatureActions.failure(error.message));
     }
@@ -63,11 +68,14 @@ function* getDocumentFieldsWorker(action) {
 }
 
 function* signDocumentFieldsWorker(action) {
-    const { signatureURL, fields, senderEmail, contractId } = action.payload;
+    const { signatureURL, fields, senderEmail, contractId, label } = action.payload;
 
     try {
         // TODO давати іншу назву файлу. В якій вже не буде AGC_TEMPLATE. Наприклад AGRCONCLUDE.
-        const { data: { id: documentId } } = yield call(copyDocumentEndpoint, { fileId: action.payload.documentId })
+        const { data: { id: documentId } } = yield call(copyDocumentEndpoint, { 
+            fileId: action.payload.documentId,
+            fileName: `${label} Concluded` 
+        })
         const toUpdateFields = { requests: [] }        
 
         for (const fieldName in fields) {

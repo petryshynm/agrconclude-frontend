@@ -47,12 +47,14 @@ function* getAgreementWorker(action) {
 
 function* createAgreementWorker(action) {
   try {
-    const { expireAt, documentId } = action.payload
-    const email = yield select(state => state.auth.profile.email);
+    const { client, ...rest } = action.payload
+    const { expireAt, documentId } = rest;
+    const { value: clientId, label: email } = client
     const requestBody = {
-      ...action.payload,
+      ...rest,
       expireAt: (new Date(expireAt)).toISOString(),
-      email
+      email,
+      clientId
     }
     yield call(createAgreementEndpoint, requestBody)
     yield call(giveFilePermissionEndpoint, documentId, {
@@ -61,6 +63,7 @@ function* createAgreementWorker(action) {
       'emailAddress': email
     })
     yield put(createAgreementActions.success())
+    yield put(getMyAgreementsActions.request());
   } catch (error) {
     yield put(createAgreementActions.failure(error.message));
   }
@@ -68,12 +71,11 @@ function* createAgreementWorker(action) {
 
 function* changeStatusWorker(action) {
   try {
-      console.log(action.payload)
-      // const { contractId, ...rest } = action.payload; // TODO
-      const { data } = yield call(changeAgreementStatusEndpoint, action.payload)
-      yield put(getAgreementActions.success(data));
+    const { contractId, ...rest } = action.payload;
+    yield call(changeAgreementStatusEndpoint, contractId, rest)
+    yield put(getAgreementActions.request(contractId));
   } catch (error) {
-      yield put(getAgreementActions.failure(error.message));
+    yield put(getAgreementActions.failure(error.message));
   }
 };
 

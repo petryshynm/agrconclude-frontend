@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthButton } from "../../components/AuthButton";
-import { socials } from "../../services/utils";
+import { socials } from "../../services/constants";
 
 import "./Main.scss";
 

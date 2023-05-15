@@ -8,12 +8,13 @@ export const Form = ({initialValues, validationSchema, children, onSubmit, isFor
     initialValues={initialValues}
     onSubmit={onSubmit}
   >
-    {({dirty, isValid, handleSubmit}) => (
+    {({dirty, isValid, errors, handleSubmit}) => (
         <form 
             className={classNames(`form ${className}` , { 'form_modal': isFormModal})}
             onSubmit={handleSubmit}
         >
             {children}
+            {console.log(errors)}
             <button
                 className="form__submit"
                 disabled={!dirty || !isValid}

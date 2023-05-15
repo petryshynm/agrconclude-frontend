@@ -11,6 +11,7 @@ import { getMyAgreementsActions, getSignAgreementsActions } from "../../store/ac
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getSignatureActions } from "../../store/actions/docs/docs.actions";
+import { getProfileActions } from "../../store/actions/auth/auth.actions";
 
 const pages = [
   {
@@ -53,6 +54,7 @@ export const Account = () => {
     dispatch(getSignAgreementsActions.request());
     dispatch(getMyAgreementsActions.request());
     dispatch(getSignatureActions.request())
+    dispatch(getProfileActions.request())
   }, [dispatch]);
   
   return (
